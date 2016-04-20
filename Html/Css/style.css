@@ -27,7 +27,7 @@ header #search
 	border-radius: 5px;
 }
 
-header #signin
+header #sign
 {
 	float: right;
 
@@ -38,12 +38,12 @@ header #signin
 	text-align: right;
 }
 
-#signin #in:hover
+#sign #in:hover
 {
 	color: rgb(255,13,134);
 }
 
-#signin #out:hover
+#sign #up:hover
 {
 	color: rgb(13,255,134);
 }
