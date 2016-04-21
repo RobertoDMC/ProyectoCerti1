@@ -82,7 +82,7 @@ body
 	height: 417px;
 	background-color: #232323;
 	color: white;
-	line-height: 20px;
+	line-height: 50px;
 }
 
 .genres
@@ -96,6 +96,19 @@ body
 	float:left;
 	height: 417px;
 	background-color: #232323;
+	line-height: 60px;
+}
+
+.result
+{
+	color : white;
+	background-color : rgb(50,50,50);
+	font-family: sans-serif;
+}
+
+.title
+{
+	color: white;
 }
 
 .page_footer
