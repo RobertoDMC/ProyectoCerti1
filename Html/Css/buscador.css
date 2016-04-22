@@ -91,6 +91,12 @@ body
 	font-family: sans-serif;
 }
 
+.genres:visited
+{
+	color:blue;
+	font-family: sans-serif;
+}
+
 .right_side
 {
 	float:left;
