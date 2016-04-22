@@ -1,9 +1,57 @@
-body {
-   font-family: Georgia, "Times New Roman",
-          Times, serif;
-    color: #000000;
-    background-color: aqua }
+a.open{
+  background-color: #414141;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.5em;
+  margin: 20px;
+  padding: 10px 20px;
+  position: relative;
+  text-decoration: none;
+  text-shadow: 2px 2px 0px #000;
+  transition: :background-color 1s;
+}
 
+a.open:hover
+{
+  color: rgb(255,13,134);
+}
+
+section.modalDialog{
+  background-color: rgba(0,0,0,0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  position: fixed;
+  z-index: -10;
+  transition: :opacity 1s;
+  text-align: center;
+
+}
+
+section.modalDialog:target{
+  opacity: 1;
+}
+
+a.close{
+  background-color: #414141;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 22px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  text-align: center;
+  text-decoration: none;
+  width: 28px;
+}
+
+a.close:hover{
+background-color: #000;
+}
 section article.ingreso {
   
   background-color: lime;
@@ -15,6 +63,7 @@ section article.ingreso {
   position: relative;
   vertical-align: top;
   width: 25%;
+  border-radius: 0px 0px 15px 15px;
 
 }
 
