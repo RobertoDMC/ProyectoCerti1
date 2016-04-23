@@ -8,6 +8,7 @@
 header,nav,section,article,aside,footer
 {
 	display: block;
+	z-index: 0;
 }
 
 .page_header
@@ -22,6 +23,8 @@ header,nav,section,article,aside,footer
 #logo
 {
 	float:left;
+	position: fixed;
+	z-index: 5;
 }
 
 header #search
@@ -32,14 +35,16 @@ header #search
 
 	text-align: center;
 
+	position: relative;
 }
 
 #search #searchButton
 {
 	border-radius: 5px;
+	position: relative;
 }
 
-header #sign
+header .container
 {	
 
 	background-color: #232323;
@@ -47,24 +52,21 @@ header #sign
 	margin: 0 0 0 0;
 
 	text-align: right;
+
+	position: relative;
 }
 
-#sign #in:hover
-{
-	color: rgb(255,13,134);
-}
-
-#sign #up:hover
+#openModal #up:hover
 {
 	color: rgb(13,255,134);
 }
 
-#sign #in:visited
+a.open:visited
 {
 	color: white;
 }
 
-#sign #up:visited
+#openModal #up:visited
 {
 	color: white;
 }

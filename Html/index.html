@@ -7,6 +7,8 @@
 		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="16x16">
 		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="32x32">
+		<link rel="stylesheet" type="text/css" href="Css/CssLogin.css">
+		<>
 	</head>
 	<body>
 
@@ -21,10 +23,37 @@
 			<input id  = "searchButton" type="button" onclick = "location.href='buscador.html'" value="Buscar">
 			</div>
 
-			<div id = "sign">
-			<a id = "in" href="Login.html">Sign In</a>
+			<div class="container">
+				<a href="#openModal" class="open"  onclick="openModal()">Sign In</a>
 
-			<a id = "up" href="signup.html">Sign Up</a>
+				<section id="openModal" class="modalDialog">
+					<a href="#close" class="close" onclick="closeModal()"> X </a>
+						<article class="ingreso">
+
+					
+
+								<figure><img src="Imagenes/dog.jpg"alt=""></figure>
+
+									<span class="titule"> LOGIN </span>
+
+										<p>Ingrese sus datos porfavor</p>
+		
+									
+
+												<h2> Username: <input id = "emailTextBox" type = "text"> </input></h2>
+										
+												<h2> Password: <input id = "emailTextBox" type = "password"></h2>
+
+												<input id = "loginButton" type="button" value="Go"></input>
+
+									
+
+						</article>
+				</section>
+
+		
+			</div>
+			
 			</div>
 
 		
@@ -69,5 +98,19 @@
 			© Copyright Brainiacs, 2016
 		</footer>
 	
+	<script>
+	function openModal() {
+	    var x = document.getElementById("openModal");
+
+	    	x.style.zIndex = "20";	
+	}
+
+	function closeModal() {
+		var x = document.getElementById("openModal");
+
+			x.style.zIndex = "-10";
+	}
+	</script>
+
 	</body>
 </html>
