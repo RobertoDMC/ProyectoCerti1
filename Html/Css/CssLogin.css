@@ -142,7 +142,7 @@ h2 {
   width: 40%;
 }
 
-#emailTextBox{
+.emailTextBox{
    border-style: solid;
    margin: 20 24% 15 24%;
    position: relative;
