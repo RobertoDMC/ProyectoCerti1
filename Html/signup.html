@@ -81,18 +81,20 @@
 		<section id = "registerRightSide" class="right_side">
 				
 				<header>
-					<h2 style = "color:white">Pagina de Registro</h2>
+					<h2 style = "color:white">Register</h2>
 				</header>
 
 				<div class = "register">
-					<form>
+					<form name="registerForm" onsubmit="return validatePassword()">
 					<h4> Username: <input class = "registerTextBox" type = "text" required> </input></h4>
-					<h4> Password: <input id = "passwordBox" class = "registerTextBox" type = "password" required> </input></h4>
-					<h4> Password Verification: <input id = "passwordVerificationBox" class = "registerTextBox" type = "password" required> </input></h4>
+					<h4> Password: <input id = "passwordBox" class = "registerTextBox" type = "password" name = "password" required> </input></h4>
+					<h4> Password Verification: <input id = "passwordVerificationBox" class = "registerTextBox" name = "passwordValidation" 
+						 type = "password" required> </input></h4>
+					<script type="text/javascript" src = "Js/passwordValidator.js"></script>
 					<h4> e-mail: <input class = "registerTextBox" type = "email" required> </input></h4>
 					<h4> Sex: <input type="radio" name="gender" value="male" checked> Male <input type="radio" name="gender" value="female"> Female</h4>
 					<h4> Date of Birth : <input class = "registerTextBox" type = "date" required> </input></h4>
-					<h4> Profile Picture: <input class = "registerTextBox" type = "file" name="userPic" required> </input></h4>
+					<h4> Profile Picture: <input class = "registerTextBox" type = "file" name="userPic"> </input></h4>
 					<input id = "submitButton" type="submit" value="Submit">
 				</div>
 			</section>
