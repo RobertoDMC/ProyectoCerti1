@@ -8,6 +8,9 @@
 		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="16x16">
 		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="32x32">
 		<link rel="stylesheet" type="text/css" href="Css/CssLogin.css">
+
+		<script type="text/javascript" src="/Js/register.js"></script>
+
 		
 	</head>
 	<body>
@@ -85,17 +88,16 @@
 				</header>
 
 				<div class = "register">
-					<form name="registerForm" onsubmit="return validatePassword()">
-					<h4> Username: <input class = "registerTextBox" type = "text" required> </input></h4>
+					<form name="registerForm" >
+					<h4> Username: <input id = "usernameBox" class = "registerTextBox" type = "text" name = "username" required > </input></h4>
 					<h4> Password: <input id = "passwordBox" class = "registerTextBox" type = "password" name = "password" required> </input></h4>
-					<h4> Password Verification: <input id = "passwordVerificationBox" class = "registerTextBox" name = "passwordValidation" 
-						 type = "password" required> </input></h4>
+					<h4> Password Verification: <input id = "passwordVerificationBox" class = "registerTextBox" name = "passwordValidation" type = "password" required> </input></h4>
 					<script type="text/javascript" src = "Js/passwordValidator.js"></script>
-					<h4> e-mail: <input class = "registerTextBox" type = "email" required> </input></h4>
+					<h4> e-mail: <input id = "emailBox" class = "registerTextBox" type = "email" name = "email" required> </input></h4>
 					<h4> Sex: <input type="radio" name="gender" value="male" checked> Male <input type="radio" name="gender" value="female"> Female</h4>
-					<h4> Date of Birth : <input class = "registerTextBox" type = "date" required> </input></h4>
-					<h4> Profile Picture: <input class = "registerTextBox" type = "file" name="userPic"> </input></h4>
-					<input id = "submitButton" type="submit" value="Submit">
+					<h4> Date of Birth : <input id = "birthdayBox" class = "registerTextBox" type = "date" name="birthday" required> </input></h4>
+					<!--h4> Profile Picture: <input class = "registerTextBox" type = "file" name="userPic"> </input></h4-->
+					<input id = "submitButton" type="submit" value="Submit" onclick="register()">
 				</div>
 			</section>
 
