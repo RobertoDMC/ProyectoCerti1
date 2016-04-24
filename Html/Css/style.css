@@ -163,3 +163,14 @@ label.star:before {
 	color:white;
 	font-family: sans-serif;
 }
+
+#submitButton
+{
+	height: 30px;
+	width: 60px;
+}
+
+#registerRightSide
+{
+margin-top: 10px;
+}
