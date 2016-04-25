@@ -98,7 +98,8 @@ section article.ingreso h2{
   font-size: 1.2em;
   padding: 0px;
   position: relative;
-  text-align: left;
+  text-align: right;
+  margin: 0 10px 10px 0;
 }
 
 
@@ -134,17 +135,23 @@ h2 {
   }
 }
 
+
+section article.ingreso a.signup{
+  position: relative;
+  text-align: left;
+  margin: 0 0 0 -35%;
+}
+
 #loginButton{
   border-radius: 5px;
   height: 30px;
-  margin: 20px 25% 15px 25%;
+  margin: 20px 0 15px 25%;
   position: relative;
-  width: 40%;
+  width: 50%;
 }
 
 .emailTextBox{
    border-style: solid;
-   margin: 20 24% 15 24%;
    position: relative;
    width: 50%;
 }
