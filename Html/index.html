@@ -10,13 +10,15 @@
 		<link rel="stylesheet" type="text/css" href="Css/CssLogin.css">
 		
 		<script type="text/javascript" src="Js/modal.js"></script>
-
+		
 	</head>
 	<body>
 
 	<header class="page_header">
 			<!--Creando el logo de la pagina-->
-			<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70">
+			<a href = "index.html">
+				<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70">
+			</a>
 			
 			<div id = "search">
 			<!--Creando el sector  de busqueda, con el boton-->
@@ -38,7 +40,7 @@
 
 									<span class="titule"> LOGIN </span>
 
-										<p>Ingrese sus datos porfavor</p>
+										<p>Please enter your username and password</p>
 		
 									
 
@@ -46,7 +48,7 @@
 										
 												<h2> Password: <input id = "emailTextBox" type = "password"></h2>
 
-												<input id = "loginButton" type="button" value="Go"></input>
+												<a class="signup" onclick="closeModal()" href="http://localhost:8080/Desktop/Certificacion1/ProyectoCerti1/Html/signup.html" >Sign Up<input id = "loginButton" type="button" value="Go"></input></a>
 
 									
 
@@ -55,8 +57,7 @@
 
 		
 			</div>
-			
-			</div>
+
 
 		
 	</header>
