@@ -114,6 +114,8 @@ body
 
 	margin-top: 20px;
 
+	text-align: center;
+
 	/*-webkit-column-count: 2; /* Chrome, Safari, Opera */
     /*-moz-column-count: 2; /* Firefox */
     /*column-count: 2;*/
@@ -121,7 +123,7 @@ body
 	font-size: 15px;
 
 	height:50px;
-	width:200px;
+	width:250px;
 
 	-webkit-transition:-webkit-transform 1s,opacity 1s,background 1s,width 1s,height 1s,font-size 1s;
 	-webkit-border-radius:5px;
@@ -141,6 +143,30 @@ body
 	height: 80px;
 	opacity: 1;
 	font-size: 25px;
+
+}
+
+.home_movies img{
+	height=45px; 
+	width=45px; 
+	margin-top: 3px;
+	margin-left: 3px;
+	float: left;
+
+	-webkit-transition:-webkit-transform 1s,opacity 1s,background 1s,width 1s,height 1s,font-size 1s;
+	-webkit-border-radius:5px;
+	-o-transition-property:width,height,-o-transform,background,font-size,opacity;
+	-o-transition-duration:1s,1s,1s,1s,1s,1s;
+	-moz-transition-property:width,height,-o-transform,background,font-size,opacity;
+	-moz-transition-duration:1s,1s,1s,1s,1s,1s;
+	transition-property:width,height,transform,background,font-size,opacity;
+	transition-duration:1s,1s,1s,1s,1s,1s;
+	
+}
+
+.home_movies:hover img{
+	width:55px;
+	height:55px;
 }
 
 .page_footer {
