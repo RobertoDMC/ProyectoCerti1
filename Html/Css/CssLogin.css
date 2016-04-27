@@ -139,7 +139,7 @@ h2 {
 section article.ingreso a.signup{
   position: relative;
   text-align: left;
-  margin: 0 0 0 -35%;
+  margin: 0 0 0 10px;
 }
 
 #loginButton{
