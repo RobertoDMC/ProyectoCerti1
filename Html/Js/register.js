@@ -40,7 +40,9 @@ function register()
 
 	if(validatePassword()!=0)
 	{
-		alert("Passwords do not match");
+		//alert("Passwords do not match");
+		console.log("Passwords do not match");
+		return false;
 	}
 	else
 	{
