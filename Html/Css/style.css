@@ -118,7 +118,7 @@ body
 
 	/*-webkit-column-count: 2; /* Chrome, Safari, Opera */
     /*-moz-column-count: 2; /* Firefox */
-    /*column-count: 2;*/
+    column-count: 2;
 
 	font-size: 15px;
 
@@ -147,8 +147,8 @@ body
 }
 
 .home_movies img{
-	height=45px; 
-	width=45px; 
+	height:45px; 
+	width:45px; 
 	margin-top: 3px;
 	margin-left: 3px;
 	float: left;
@@ -162,6 +162,17 @@ body
 	transition-property:width,height,transform,background,font-size,opacity;
 	transition-duration:1s,1s,1s,1s,1s,1s;
 	
+}
+
+.home_movies a:visited
+{
+	color: blue;
+}
+
+
+.home_movies a:hover
+{
+	color: yellow;
 }
 
 .home_movies:hover img{
