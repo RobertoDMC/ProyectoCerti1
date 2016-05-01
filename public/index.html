@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "UTF-8" />
+		<title>MooBeez</title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+		<link rel = "stylesheet" href = "Css/style.css" type = "text/css"  media = "screen" />
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="16x16">
+		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="32x32">
+		<link rel="stylesheet" type="text/css" href="Css/CssLogin.css">
+		
+		<script type="text/javascript" src="Js/modal.js"></script>
+		<script type="text/javascript" src="Js/load.js"></script>
+	
+		
+		
+
+	</head>
+	<body>
+
+	<header class="page_header">
+			<!--Creando el logo de la pagina-->
+			<a href = "index.html">
+				<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70">
+			</a>
+			
+			<div id = "search">
+			<!--Creando el sector  de busqueda, con el boton-->
+			<input id = "box" type="text" name="search">
+
+			<input id  = "searchButton" type="button" onclick = "location.href='buscador.html'" value="Buscar">
+			</div>
+
+			<div class="container">
+				<a href="#openModal" class="open"  onclick="openModal()">Sign In</a>
+
+				<section id="openModal" class="modalDialog">
+					<a href="#close" class="close" onclick="closeModal()"> X </a>
+						<article class="ingreso">
+
+					
+
+								<figure><img src="Imagenes/dog.jpg"alt=""></figure>
+
+									<span class="titule"> LOGIN </span>
+
+										<p>Please enter your username and password</p>
+		
+									
+
+												<h2> Username: <input id = "TextBox" type = "text"> </input></h2>
+										
+												<h2> Password: <input id = "TextBox" type = "password"></h2>
+
+												<a class="signup" onclick="closeModal()" href="signup.html" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
+
+
+						</article>
+				</section>
+
+		
+			</div>
+
+
+		
+	</header>
+		<aside class="left_side">
+
+			<header>
+				<h2>Popular Genres</h2>
+			</header>
+			<ul>
+				<li> <a class = "genres" href="">Action</a> </li>
+				<li> <a class = "genres" href="">Adventure</a> </li>
+				<li> <a class = "genres" href="">Comedy</a> </li>
+				<li> <a class = "genres" href="">Romance</a> </li>
+			</ul>
+			<footer><a class = "genres" href="">See More..</a></footer>
+
+		</aside>
+
+	
+		<section class="right_side">
+				
+				<header>
+					<h2>Esta Es una prubea</h2>
+				</header>
+
+				<!--div class="home_movies"><img src="Imagenes/doge.png" height="45px" width="45px" ></img>Doge the Move 2</div>
+				<div class="home_movies"><img src="Imagenes/avengers.png" height="45px" width="45px"></img>Avengers</div>
+				<div class="home_movies"><img src="Imagenes/bvs.png" height="45px" width="45px"></img>Edu4Java</div>
+				<div class="home_movies"><img></img>EQUISDE</div>
+				<div class="home_movies"><img></img>YEEFE</div>
+				<div class="home_movies"><img></img>asdasd</div-->
+				<div class="movie_container">
+					<script type="text/javascript">
+						load();	
+					</script>
+				</div>
+				<footer>
+					<a href="">See More..</a>	
+				</footer>
+
+
+			</section>
+			
+		<footer class = "page_footer">
+			© Copyright Brainiacs, 2016
+		</footer>
+	</body>
+</html>

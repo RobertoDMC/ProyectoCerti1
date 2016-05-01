@@ -1,0 +1,14 @@
+[
+    {
+    	"title":"Doge the Movie",
+    	"cover":"Imagenes/doge.png"
+    },
+    { 
+    	"title":"BVS",
+    	"cover":"Imagenes/bvs.png" 
+    },
+    { 
+    	"title":"Avengers",
+    	"cover":"Imagenes/avengers.png"
+    }
+]
