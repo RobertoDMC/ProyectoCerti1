@@ -28,7 +28,7 @@ function load(){
 				var container = '<div id="'+ title +'" class="home_movies">';
 				var img = '<img src="' + movie.cover + '"><br>';
 				console.log(img);
-				var span = /*'<a href=#>'+*/title/*+'</a>' ;
+				var span = /*'<a href=#>'+*//*title*//*+'</a>' ;
 			var append = container + img + span + '</div>';
 				$('.movie_container').append(append);
 	
@@ -37,11 +37,13 @@ function load(){
 */
 
 
-function searchFor(criteria, value)
+function searchFor()
 {
 	var json = '{ "movies" : [' +
    	'{ "title" : "Doge the Movie" , "cover" : "Imagenes/doge.png" },' +
    	'{ "title" : "Batman vs Superman" , "cover" : "Imagenes/bvs.png" } ]}'; 
+
+   	var criteria = document.getElementById("searchBox").value;
     
    	var data = JSON.parse(json);
 
