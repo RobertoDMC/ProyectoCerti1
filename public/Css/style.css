@@ -83,17 +83,42 @@ body
 	float:left; 
 	width: 200px;
 	height: 417px;
-	background-color: #232323;
+
+
+
+	background-color: #373737;
+	
 	color: white;
-	line-height: 50px;
+	/*line-height: 50px;*/
+
 }
 
-.genres
+.genres 
 {
+	display: block;
+	margin: 30px auto;
+
+	
+	height: 90%;
+	width: 80%;
 	color:white;
+	
 	font-family: sans-serif;
+
+	border: 3px solid white;
+	border-radius: 5px;
+	text-decoration: none;
+
+
+
 }
 
+/*.genres p
+{
+	margin: 5px 10px 15px 10px;
+	text-align: center;
+}
+*/
 .right_side
 {
 	padding-top:10px;
@@ -107,7 +132,7 @@ body
 
 .movie_container{
 	
-	height: 500px;
+	/*height: 500px;*/
 	-webkit-column-count: 2; /* Chrome, Safari, Opera */
     -moz-column-count: 2; /* Firefox */
     column-count: 2;
@@ -157,7 +182,6 @@ body
 	height: 80px;
 	opacity: 1;
 	font-size: 25px;
-
 }
 
 .home_movies img{
