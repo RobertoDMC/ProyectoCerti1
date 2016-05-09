@@ -43,12 +43,14 @@ function searchFor()
    	'{ "title" : "Doge the Movie" , "cover" : "Imagenes/doge.png" },' +
    	'{ "title" : "Batman vs Superman" , "cover" : "Imagenes/bvs.png" } ]}'; 
 
-   	var criteria = document.getElementById("searchBox").value;
+   	var criteria = document.getElementById("searchCriteria").value;
+
+   	var value = document.getElementById("searchBox").value;
     
    	var data = JSON.parse(json);
 
 	//Taking all to lower case
-	var lcCriteria = criteria.toLowerCase();
+	var lcCriteria = value.toLowerCase();
 
 	//Splitting the string into words to search for each one
 	var splitted = lcCriteria.split(" ");

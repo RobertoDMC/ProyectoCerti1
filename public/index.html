@@ -15,11 +15,15 @@
 		<script type="text/javascript" src="Js/modal.js"></script>
 		<script type="text/javascript" src="Js/load.js"></script>
 	
-		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src = "Angular/loadMovies.js"></script>
+		<script src = "Angular/loadGenres.js"></script>
+		<script src = "Angular/main.js"></script>
 		
 
 	</head>
-	<body>
+	<body ng-app = "main">
 
 	<header class="page_header">
 			<!--Creando el logo de la pagina-->
@@ -39,7 +43,7 @@
 			<input id = "searchBox" type="search" name="search">
 
 			<input id  = "searchButton" type="button" onclick = "searchFor();" value="Buscar">
-			<!-->location.href='buscador.html'<-->
+			
 			</div>
 
 			<div class="container">
@@ -78,42 +82,36 @@
 		<aside class="left_side">
 
 			<header>
-				<h2>Popular Genres</h2>
+				<h2>Genres</h2>
 			</header>
-			<ul>
-				<li> <a class = "genres" href="">Action</a> </li>
-				<li> <a class = "genres" href="">Adventure</a> </li>
-				<li> <a class = "genres" href="">Comedy</a> </li>
-				<li> <a class = "genres" href="">Romance</a> </li>
-			</ul>
-			<footer><a class = "genres" href="">See More..</a></footer>
+			
+			<div ng-controller = "genreController">
+					<div class = "genres_container" ng-repeat = "genre in genres">
+						<div class = "genre">
+							{{genre.value}}
+						</div>
+					</div>
+			</div>
 
 		</aside>
 
 	
-		<section class="right_side">
+		<section class="right_side" ng-controller = "movieController">
 				
 				<header>
-					<h2>Esta Es una prubea</h2>
+					<h2>Latest movies</h2>
 				</header>
-
-				<!--div class="home_movies"><img src="Imagenes/doge.png" height="45px" width="45px" ></img>Doge the Move 2</div>
-				<div class="home_movies"><img src="Imagenes/avengers.png" height="45px" width="45px"></img>Avengers</div>
-				<div class="home_movies"><img src="Imagenes/bvs.png" height="45px" width="45px"></img>Edu4Java</div>
-				<div class="home_movies"><img></img>EQUISDE</div>
-				<div class="home_movies"><img></img>YEEFE</div>
-				<div class="home_movies"><img></img>asdasd</div-->
 				<div class="movie_container">
-					<script type="text/javascript">
-						load();	
-					</script>
+					<div class = "home_movies" ng-repeat = "movie in movies">
+						<img src = "{{movie.cover}}" class = "img-thumbnail" >{{movie.title}}</img>
+						<br/>
+							{{movie.genre}}
+						<br/>
+							{{movie.year}}
+					</div>
 				</div>
-				<footer>
-					<a href="">See More..</a>	
-				</footer>
 
-
-			</section>
+		</section>
 			
 		<footer class = "page_footer">
 			© Copyright Brainiacs, 2016
