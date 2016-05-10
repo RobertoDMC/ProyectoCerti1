@@ -55,7 +55,7 @@ app.config(function($routeProvider){
 	})		//Cuando estemos en la raiz
 	.when('/signup',{
 		templateUrl:'pages/signup.html',
-		controller: 'loginController'
+		//controller: 'loginController'
 	})
 	.otherwise({
 		redirectTo:'/'

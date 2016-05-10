@@ -1,6 +1,6 @@
 <!--Creando el logo de la pagina-->
 <div style ="float:left; height:70px; width: 70px;">
-<a href = "index.html">
+<a href = "#/home">
 	<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70">
 </a>
 </div>
@@ -9,13 +9,13 @@
 
 	<select id = "searchCriteria">
 		<option value="title">Title</option>
-		<option value="genre">Genre</option>				
+		<option value="genre">Genre</option>
 		<option value="year">Year</option>
 		<option value="director">Director</option>
 	</select>
-	<input id = "searchBox" type="search" name="search">
 
-	<input id  = "searchButton" type="button" onclick = "searchFor();" value="Buscar">
+	<input id = "searchBox" type="search" name="search">
+	<input id  = "searchButton" type="button" onclick = "searchFor();" value="Search">
 
 </div>
 
@@ -34,7 +34,7 @@
 			<h2> Username: <input id = "TextBox" type = "text"> </input></h2>
 			<h2> Password: <input id = "TextBox" type = "password"></h2>
 
-			<a class="signup" onclick="closeModal()" href="signup.html" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
+			<a class="signup" onclick="closeModal()" href="#/signup" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
 
 		</article>
 	</section>
