@@ -9,11 +9,17 @@
 		<link rel="icon" type="image/png" href="Imagenes/favicon.png" sizes="32x32">
 		<link rel="stylesheet" type="text/css" href="Css/CssLogin.css">
 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
 		<script type="text/javascript" src="Js/register.js"></script>
 		<script type="text/javascript" src="Js/modal.js"></script>
+		<script src = "Angular/loadMovies.js"></script>
+		<script src = "Angular/loadGenres.js"></script>
+		<script src = "Angular/main.js"></script>
 
 	</head>
-	<body>
+	<body ng-app = "main">
 
 	<header class="page_header">
 			<!--Creando el logo de la pagina-->
@@ -61,15 +67,15 @@
 		<aside class="left_side">
 
 			<header>
-				<h2>Popular Genres</h2>
+				<h2>Genres</h2>
 			</header>
-			<ul>
-				<li> <a class = "genres" href="">Action</a> </li>
-				<li> <a class = "genres" href="">Adventure</a> </li>
-				<li> <a class = "genres" href="">Comedy</a> </li>
-				<li> <a class = "genres" href="">Romance</a> </li>
-			</ul>
-			<footer><a class = "genres" href="">See More..</a></footer>
+				<div ng-controller = "genreController">
+						<div class = "genres_container" ng-repeat = "genre in genres">
+							<div class = "genres">
+								{{genre.value}}
+							</div>
+						</div>
+				</div>
 
 		</aside>
 
@@ -82,11 +88,11 @@
 
 				<div class = "register">
 					<form name="registerForm" >
-					<h4> Username: <input id = "usernameBox" class = "registerTextBox" type = "text" name = "username" required > </input></h4>
-					<h4> Password: <input id = "passwordBox" class = "registerTextBox" type = "password" name = "password" required> </input></h4>
-					<h4> Password Verification: <input id = "iificationBox" class = "registerTextBox" name = "passwordValidation" type = "password" required> </input></h4>
-					<h4> e-mail: <input id = "emailBox" class = "registerTextBox" type = "email" name = "email" required> </input></h4>
-					<input id = "submitButton" type="submit" value="Submit" onclick="register()"></input></form>
+					<h4> Username: <input id = "usernameBox" style = "width:500px;" class = "form-control" type = "text" name = "username" required > </input></h4>
+					<h4> Password: <input id = "passwordBox" style = "width:500px;" class = "form-control" type = "password" name = "password" required> </input></h4>
+					<h4> Password Verification: <input id = "verificationBox"  style = "width:500px;" class = "form-control" name = "passwordValidation" type = "password" required> </input></h4>
+					<h4> e-mail: <input id = "emailBox" style = "width:500px;" class = "form-control" type = "email" name = "email" required> </input></h4>
+					<input class = "btn btn-success" type="submit" value="Submit" onclick="register()"></input></form>
 				</div>
 			</section>
 

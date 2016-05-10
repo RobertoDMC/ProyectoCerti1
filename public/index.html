@@ -17,105 +17,19 @@
 	
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-		<script src = "Angular/loadMovies.js"></script>
-		<script src = "Angular/loadGenres.js"></script>
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
 		<script src = "Angular/main.js"></script>
 		
 
 	</head>
 	<body ng-app = "main">
 
-	<header class="page_header">
-			<!--Creando el logo de la pagina-->
-			<a href = "index.html">
-				<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70">
-			</a>
+		<div class = "page_header" ng-include = "'pages/header.html'"></div>
+
+		<aside class="left_side" ng-include = "'pages/genres.html'" ng-controller = "genreController"></aside>
+
+		<section class="right_side" ng-view ng-controller = "movieController"></section>
 			
-			<div id = "search">
-			<!--Creando el sector  de busqueda, con el boton-->
-
-			<select id = "searchCriteria">
-  				<option value="title">Title</option>
-  				<option value="genre">Genre</option>
-  				<option value="year">Year</option>
-  				<option value="director">Director</option>
-			</select>
-			<input id = "searchBox" type="search" name="search">
-
-			<input id  = "searchButton" type="button" onclick = "searchFor();" value="Buscar">
-			
-			</div>
-
-			<div class="container">
-				<a href="#openModal" class="open"  onclick="openModal()">Sign In</a>
-
-				<section id="openModal" class="modalDialog">
-					<a href="#close" class="close" onclick="closeModal()"> X </a>
-						<article class="ingreso">
-
-					
-
-								<figure><img src="Imagenes/dog.jpg"alt=""></figure>
-
-									<span class="titule"> LOGIN </span>
-
-										<p>Please enter your username and password</p>
-		
-									
-
-												<h2> Username: <input id = "TextBox" type = "text"> </input></h2>
-										
-												<h2> Password: <input id = "TextBox" type = "password"></h2>
-
-												<a class="signup" onclick="closeModal()" href="signup.html" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
-
-
-						</article>
-				</section>
-
-		
-			</div>
-
-
-		
-	</header>
-		<aside class="left_side">
-
-			<header>
-				<h2>Genres</h2>
-			</header>
-			
-			<div ng-controller = "genreController">
-					<div class = "genres_container" ng-repeat = "genre in genres">
-						<div class = "genre">
-							{{genre.value}}
-						</div>
-					</div>
-			</div>
-
-
-		</aside>
-
-	
-		<section class="right_side" ng-controller = "movieController">
-				
-				<header>
-					<h2>Latest movies</h2>
-				</header>
-				<div class="movie_container">
-					<div class = "home_movies" ng-repeat = "movie in movies">
-						<img src = "{{movie.cover}}" class = "img-thumbnail" >{{movie.title}}</img>
-						<br/>
-							{{movie.genre}}
-						<br/>
-							{{movie.year}}
-					</div>
-				</div>
-
-		</section>
-			
-		<footer class = "page_footer">
-			© Copyright Brainiacs, 2016
-		</footer>
+		<div ng-include = "'pages/footer.html'"></div>
 	</body>
 </html>

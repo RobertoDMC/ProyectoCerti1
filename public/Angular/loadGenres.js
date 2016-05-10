@@ -12,7 +12,7 @@ app.controller("genreController", function($scope)
          "value" : "Much WOW"
       },
       { 
-         "value" : "Horros"
+         "value" : "Horror"
       },
       { 
          "value" : "History"

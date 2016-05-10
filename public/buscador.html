@@ -10,9 +10,17 @@
 		<link rel="stylesheet" type="text/css" href="Css/CssLogin.css">
 
 		<script type="text/javascript" src="Js/modal.js"></script>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	
+
+		<script src = "Angular/loadMovies.js"></script>
+		<script src = "Angular/loadGenres.js"></script>
+		<script src = "Angular/main.js"></script>
 		
 	</head>
-	<body>
+	<body ng-app = "main">
 
 	<header class="page_header">
 			<!--Creando el logo de la pagina-->
@@ -69,15 +77,15 @@
 		<aside class="left_side">
 
 			<header>
-				<h2>Popular Genres</h2>
+				<h2>Genres</h2>
 			</header>
-			<ul>
-				<li> <a class = "genres" href="">Action</a> </li>
-				<li> <a class = "genres" href="">Adventure</a> </li>
-				<li> <a class = "genres" href="">Comedy</a> </li>
-				<li> <a class = "genres" href="">Romance</a> </li>
-			</ul>
-			<footer><a class = "genres" href="">See More..</a></footer>
+			<div ng-controller = "genreController">
+					<div class = "genres_container" ng-repeat = "genre in genres">
+						<div class = "genres">
+								{{genre.value}}
+						</div>
+					</div>
+			</div>
 
 		</aside>
 
@@ -85,24 +93,21 @@
 		<section class="right_side">
 				
 				<header>
-					<h2 style = "color:white">Resultados de la busqueda</h2>
+					<h2 style = "color:white">Search Results</h2>
 				</header>
 
-				<div class = "result">
+				<div class = "home_movies">
 						<img src = "Imagenes/bvs.png" alt="Batman v Superman" height = "50" width="50">
 						<a class = "title" href = "https://www.youtube.com/watch?v=0WWzgGyAH6Y">Batman v Superman: Dawn of Justice</a>
 				</div>
-				<hr/>	
-				<div class = "result">
+				<div class = "home_movies">
 						<img src = "Imagenes/avengers.png" alt="Avengers: Age of Ultron" height = "50" width="50">
 						<a class = "title" href = "https://www.youtube.com/watch?v=tmeOjFno6Do">Avengers: Age of Ultron</a>
 				</div>
-				<hr/>
-				<div class = "result">
+				<div class = "home_movies">
 						<img src = "Imagenes/doge.png" alt="Doge: The Movie 2" height = "50" width="50">
 						<a class = "title" href = "https://www.youtube.com/watch?v=McjLjxB5p5M">Doge: The Movie 2</a>
 				</div>
-				<hr/>
 			</section>
 
 		<footer class = "page_footer">
