@@ -24,6 +24,39 @@ app.controller("movieController", function($scope)
    	];
 });
 
+app.controller("modalController", function($scope)
+{  
+   $scope.displayModal = false;
+
+   $scope.showModal = function()
+   {
+      $scope.displayModal = true;
+   }
+
+   $scope.hideModal = function()
+   {
+      $scope.displayModal = false;
+   }
+
+});
+
+app.controller("registerController", function($scope)
+{  
+
+   $scope.user = {};
+
+   $scope.register = function(name,password,passVerification, email)
+   {
+      $scope.user.name = name;
+      $scope.user.password = password;
+      $scope.user.passVerification = passVerification;
+      $scope.user.email = email;
+      console.log($scope.user);
+
+   };
+
+});
+
 app.controller("genreController", function($scope)
 {
 	$scope.genres = [

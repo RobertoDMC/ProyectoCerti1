@@ -1,5 +1,5 @@
 a.open{
-  background-color: #414141;
+  background-color: #ff0055;
   border-radius: 5px;
   color: #fff;
   font-size: 1.5em;
@@ -24,7 +24,7 @@ section.modalDialog{
   right: 0;
   opacity: 1;
   position: fixed;
-  z-index: -20;
+  z-index: 20;
   transition: :opacity 1s;
   text-align: center;
 
@@ -35,7 +35,7 @@ section.modalDialog:target{
 }
 
 a.close{
-  background-color: #414141;
+  background-color:#ff0055;
   border-radius: 5px;
   color: #fff;
   font-size: 14px;
@@ -54,7 +54,7 @@ background-color: #000;
 }
 section article.ingreso {
   
-  background-color: lime;
+  background-color: #ff0055;
   border-style: solid;
   border-width: 2px;
   display: inline-block;
@@ -83,7 +83,7 @@ section article.ingreso figure img{
 }
 
 section article.ingreso div{
-  background-color: teal;
+  background-color: #ff0055;
   border-radius: 15px;
   border-style: solid;
   border-width: 2px;

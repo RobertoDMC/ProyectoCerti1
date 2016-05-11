@@ -19,23 +19,27 @@
 
 </div>
 
-<div class="container">
-	<a href="#openModal" class="open"  onclick="openModal()">Sign In</a>
-
-	<section id="openModal" class="modalDialog">
-		<a href="#close" class="close" onclick="closeModal()"> X </a>
+<div class="container1">
+	<button href="#openModal" class="btn btn-success btn-lg" style = "margin-right:10px; background-color : #333333; color :white; border-color:#232323; "  ng-click = "showModal()">Sign In</button>
+</div>
+	<section id="openModal" class="modalDialog"  ng-show = "displayModal">
+		<a href="#close" class="close" ng-click = "hideModal()"> X </a>
 		<article class="ingreso">
 
-			<figure><img src="Imagenes/dog.jpg"alt=""></figure>
+			<figure><img src="Imagenes/dog.jpg" alt="imagen doge"></figure>
 
 			<span class="title"> LOGIN </span>
 			<p>Please enter your username and password</p>
+			<br/>
+			<br/>
+			<br/>
 
-			<h2> Username: <input id = "TextBox" type = "text"> </input></h2>
-			<h2> Password: <input id = "TextBox" type = "password"></h2>
-
-			<a class="signup" onclick="closeModal()" href="#/signup" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
+			<h2> Username: <input class = "form-control"  placeholder='Username' style = "width:250px;;float: right; position:relative;" id = "TextBox" type = "text"> </input></h2>
+			<br/>
+			<h2> Password: <input class = "form-control" placeholder='Password' style = "width:250px; float: right; position:relative;" id = "TextBox" type = "password"></h2>
+			<br/>
+			<br/>
+			<a class="signup" ng-click = "hideModal()" href="#/signup" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
 
 		</article>
 	</section>
-</div>
