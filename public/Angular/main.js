@@ -22,6 +22,10 @@ app.controller("movieController", function($scope)
    			"cover" : "Imagenes/avengers.png" 
    		}	 
    	];
+
+
+   
+
 });
 
 app.controller("modalController", function($scope)
@@ -57,6 +61,7 @@ app.controller("registerController", function($scope)
 
 });
 
+
 app.controller("genreController", function($scope)
 {
 	$scope.genres = [
@@ -81,6 +86,27 @@ app.controller("genreController", function($scope)
    	];
 });
 
+app.controller("playerController", function($scope, $routeParams)
+{  
+
+   $scope.title = $routeParams.title;
+   
+
+  /* $scope.getMovie = function($event)
+   {
+      $scope.movie = $event.currentTarget;
+      console.log($scope.movie);
+   };*/
+
+/*
+   //$scope.loadMovie = function()
+   //{
+    //  $scope.movie
+   //};
+*/
+});
+
+
 app.config(function($routeProvider){
 	$routeProvider
 	.when('/', {
@@ -90,6 +116,10 @@ app.config(function($routeProvider){
 		templateUrl:'pages/signup.html',
 		//controller: 'loginController'
 	})
+   .when('/player/:title',{
+      templateUrl:'pages/player.html',
+      controller: 'playerController'
+   })
 	.otherwise({
 		redirectTo:'/'
 	})

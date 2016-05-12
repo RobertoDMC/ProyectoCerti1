@@ -18,6 +18,7 @@
 		<script type="text/javascript" src="Js/load.js"></script>
 	
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
 		<link rel = "stylesheet" href = "Css/style.css" type = "text/css"  media = "screen" />
 		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -27,13 +28,12 @@
 
 	</head>
 	<body ng-app = "main">
-
 		<div class = "page_header" ng-include = "'pages/header.html'" ng-controller = "modalController"></div>
 
 		<aside class="left_side" ng-include = "'pages/genres.html'" ng-controller = "genreController"></aside>
-
+		
 		<section class="right_side" ng-view ng-controller = "movieController"></section>
-			
+
 		<div ng-include = "'pages/footer.html'"></div>
 	</body>
 </html>

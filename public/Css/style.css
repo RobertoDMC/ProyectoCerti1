@@ -154,6 +154,10 @@ body
 
 }
 
+.home_movies a{
+	text-decoration: none;
+	color: rgb(255,13,134);
+}
 .home_movies
 {
 
