@@ -23,14 +23,24 @@ app.controller("movieController", function($scope)
    		}	 
    	];
 
+     // $scope.searchVal = "";
 
-   
+      $scope.$on('search', function(event, criteria, searchVal)
+      {
+         console.log(criteria);
+         $scope.searchVal = searchVal;
+         $scope.criteria = criteria;
+      });
 
 });
 
-app.controller("modalController", function($scope)
+app.controller("headerController", function($scope,$location, $rootScope)
 {  
    $scope.displayModal = false;
+
+   $scope.searchVal = "";
+
+   $scope.criteria = "";
 
    $scope.showModal = function()
    {
@@ -40,6 +50,14 @@ app.controller("modalController", function($scope)
    $scope.hideModal = function()
    {
       $scope.displayModal = false;
+   }
+
+   $scope.searchFor = function(criteria,searchVal)
+   {
+      $scope.criteria = "genre"
+      $scope.searchVal = searchVal;
+      $rootScope.$broadcast('search',$scope.criteria ,$scope.searchVal);
+      $location.path('/');
    }
 
 });
@@ -90,7 +108,7 @@ app.controller("playerController", function($scope, $routeParams)
 {  
 
    $scope.title = $routeParams.title;
-   
+
 
   /* $scope.getMovie = function($event)
    {

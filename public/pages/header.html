@@ -5,18 +5,27 @@
 </a>
 </div>
 <div id = "search">
-	<!--Creando el sector  de busqueda, con el boton-->
+	<!--Creando el sector  de busqueda, con el boton
+	<section class="container">
+		<div ng-repeat="pelicula in peliculas | filter: {genero: filtro}" class="movie" > 
+			<mi-pelicula movie="pelicula"> </mi-pelicula>
+			<div mi-pelicula movie="pelicula"> </div>
+		
+		</div>
+	</section>
+-->
 
-	<select id = "searchCriteria">
+	<select id = "searchCriteria" ng-model="criteria">
 		<option value="title">Title</option>
 		<option value="genre">Genre</option>
 		<option value="year">Year</option>
 		<option value="director">Director</option>
 	</select>
 
-	<input id = "searchBox" type="search" name="search"></input>
-	<button class = "btn btn-default btn-sm" style = "background-color : #ff0066; color :white; border-color:#232323;" id  = "searchButton" onclick = "searchFor();">Search</button>
-
+	<input id = "searchBox" type="search" name="search" ng-model="searchVal" placeholder = "Search..."></input>
+	<button class = "btn btn-default btn-sm" style = "background-color : #ff0066; color :white; border-color:#232323;" id  = "searchButton" 
+	 ng-click = "searchFor(criteria,searchVal)">Search</button>
+	</button>
 </div>
 
 <div class="container1">

@@ -36,7 +36,7 @@ function load(){
 }
 */
 
-
+/*
 function searchFor()
 {
 	var json = '{ "movies" : [' +
@@ -82,7 +82,7 @@ function searchFor()
 		re[i] = new RegExp(keywords[i], 'i');
 
 	}
-*/
+
 	//Declaring an array for results
 	var results = [];	
 
@@ -104,7 +104,7 @@ function searchFor()
         } 
 	}
 }
-
+*/
 
 //Check if an object is in a list/array
 function containsObject(obj, list)

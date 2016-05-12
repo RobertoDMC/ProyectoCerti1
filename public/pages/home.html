@@ -1,9 +1,9 @@
 <header>
 	<h2>Latest movies</h2>
 </header>
-<div class="movie_container">
+<div class="movie_container" ng-model = "searchVal" ng-model = "criteria">
 	
-	<div class = "home_movies" ng-repeat = "movie in movies | filter: {genre: searchVal}">
+	<div class = "home_movies" ng-repeat = "movie in movies | filter: { genre : searchVal}">
 		<a href="#player/{{movie.title}}"><img src = "{{movie.cover}}" class = "img-thumbnail">{{movie.title}}</img>
 		<br/>
 		{{movie.genre}}
