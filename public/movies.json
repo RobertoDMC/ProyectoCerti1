@@ -1,26 +1,32 @@
 [
     {
     	"title":"Doge the Movie",
+        "genre":"Much WOW",
     	"cover":"Imagenes/doge.png"
     },
     { 
     	"title":"BVS",
+        "genre":"Action",
     	"cover":"Imagenes/bvs.png" 
     },
     { 
     	"title":"Avengers",
+        "genre":"Action",
     	"cover":"Imagenes/avengers.png"
     },  
     {
         "title":"Doge the Movie",
+        "genre":"Cartoon",
         "cover":"Imagenes/doge.png"
     },
     { 
         "title":"BVS",
+        "genre":"Drama",
         "cover":"Imagenes/bvs.png" 
     },
     { 
         "title":"Avengers",
+        "genre":"Romance",
         "cover":"Imagenes/avengers.png"
     }
 ]

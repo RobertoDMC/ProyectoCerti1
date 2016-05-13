@@ -244,13 +244,13 @@ body
 {
 	/*text-align: center;*/
 	margin: 0 auto;
-	width: 600px;
+	width: 60%;
 	display: block;
 }
 
 div.stars 
 {
-  width: 270px;
+  width: 300px;
   display: inline-block;
 }
 

@@ -1,28 +1,7 @@
 var app = angular.module("main",['ngRoute']);
 
-app.controller("movieController", function($scope, $filter,$http)
+app.controller("movieController", function($scope, $filter, $http, $rootScope)
 {
-	/*$scope.movies = [
-   		{ 
-   			"title" : "Doge the Movie" , 
-   			"genre" : "Much WOW",
-   			"year"  : "2016",
-   			"cover" : "Imagenes/doge.png" 
-   		},
-   		{ 
-   			"title" : "Batman vs Superman",
-   			"genre" : "Accion",
-   			"year"  : "2016",
-   			"cover" : "Imagenes/bvs.png" 
-   		},
-   		{ 
-   			"title" : "The Avengers",
-   			"genre" : "Accion",
-   			"year"  : "2016",
-   			"cover" : "Imagenes/avengers.png" 
-   		}	 
-   	];
-   */
 
    $http.get('movies.json').success(function(data){
       $scope.movies = data;
@@ -42,6 +21,14 @@ app.controller("movieController", function($scope, $filter,$http)
 
          $filter('mifiltro')(array, $scope.criteria, false);
       }*/
+
+   $scope.movieClicked = function()
+   {
+      $rootScope.$broadcast('movieClick',$scope.movies); 
+      console.log($scope.movies[1]);  
+   }
+   
+      
 
 });
 
@@ -119,6 +106,21 @@ app.controller("playerController", function($scope, $routeParams)
 {  
 
    $scope.title = $routeParams.title;
+   $scope.clickedMovie = {};
+
+   $scope.$on('movieClick', function(event, movies)
+   {
+      //$scope.movies = movies;
+      for (var i = 0; i < movies.length; i++) 
+      {
+         if($scope.title == /*$scope.*/movies[i].title)
+         {
+            $scope.clickedMovie = /*$scope.*/movies[i];
+            //console.log($scope.clickedMovie.title);
+            console.log($scope.clickedMovie);
+         }
+      }
+   });
 
 
   /* $scope.getMovie = function($event)
@@ -153,4 +155,26 @@ app.config(function($routeProvider){
 		redirectTo:'/'
 	})
 
+});
+
+app.directive('loadingPreview', function()
+{
+   return{
+      restrict : 'E',
+      scope : 
+      {
+         movie : "="
+      },
+      
+      template: '<video width="600" controls poster="Imagenes/{{movie.cover}}.png"  preload="auto">' +
+                  '<source src="Imagenes/ciego.mp4" type="video/mp4">'+
+                  '<source src="Imagenes/ciego.ogv" type="video/ogv">'+
+                  'Your browser does not support HTML5 video.'+
+                '</video>',
+
+      link:function(scope, element, attrs)
+      {
+         scope.clickedMovie.title = scope.clickedMovie.title + 'directiva'
+      }
+   }
 });
