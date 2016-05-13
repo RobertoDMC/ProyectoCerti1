@@ -1,8 +1,8 @@
 var app = angular.module("main",['ngRoute']);
 
-app.controller("movieController", function($scope)
+app.controller("movieController", function($scope, $filter,$http)
 {
-	$scope.movies = [
+	/*$scope.movies = [
    		{ 
    			"title" : "Doge the Movie" , 
    			"genre" : "Much WOW",
@@ -22,15 +22,26 @@ app.controller("movieController", function($scope)
    			"cover" : "Imagenes/avengers.png" 
    		}	 
    	];
+   */
+
+   $http.get('movies.json').success(function(data){
+      $scope.movies = data;
+   })
+
 
      // $scope.searchVal = "";
 
-      $scope.$on('search', function(event, criteria, searchVal)
-      {
-         console.log(criteria);
-         $scope.searchVal = searchVal;
-         $scope.criteria = criteria;
-      });
+   $scope.$on('search', function(event, criteria, searchVal)
+   {
+      console.log(criteria);
+      $scope.searchVal = searchVal;
+      $scope.criteria = criteria;
+   });
+
+     /* $scope.filtering = function(value, index, array){
+
+         $filter('mifiltro')(array, $scope.criteria, false);
+      }*/
 
 });
 
