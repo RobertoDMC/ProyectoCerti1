@@ -6,11 +6,11 @@
 
 	<div class = "register">
 		<form name="registerForm" >
-			<h4> Username: <input id = "usernameBox" ng-model = "name" style = "width:500px;" class = "form-control" type = "text" name = "username" required >
+			<h4> Username: <input id = "usernameBox" placeholder = "Username" ng-model = "name" style = "width:500px;" class = "form-control" type = "text" name = "username" required >
 			</input></h4>
-			<h4> Password: <input id = "passwordBox" ng-model = "password" style = "width:500px;" class = "form-control" type = "password" name = "password" required> </input></h4>
-			<h4> Password Verification: <input id = "verificationBox"  ng-model = "passVerification" style = "width:500px;" class = "form-control" name = "passwordValidation" type = "password" required> </input></h4>
-			<h4> e-mail: <input id = "emailBox" ng-model = "email" style = "width:500px;" class = "form-control" type = "email" name = "email" required> </input></h4>
+			<h4> Password: <input id = "passwordBox" placeholder = "Password" ng-model = "password" style = "width:500px;" class = "form-control" type = "password" name = "password" required> </input></h4>
+			<h4> Password Verification: <input id = "verificationBox" placeholder = "Password Verification" ng-model = "passVerification" style = "width:500px;" class = "form-control" name = "passwordValidation" type = "password" required> </input></h4>
+			<h4> e-mail: <input id = "emailBox" placeholder="example@something.com" ng-model = "email" style = "width:500px;" class = "form-control" type = "email" name = "email" required> </input></h4>
 			<input class = "btn btn-default btn-lg" style = "background-color : #ff0066; color :white; border-color:#232323;" type="submit" value="Submit" ng-click = "register(name,password,passVerification,email)"></input></form>
 		</div>
 </section>
