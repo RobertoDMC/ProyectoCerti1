@@ -2,31 +2,37 @@
     {
     	"title":"Doge the Movie",
         "genre":"Much WOW",
-    	"cover":"Imagenes/doge.png"
+    	"cover":"Imagenes/doge.png",
+        "year" : "2016"
     },
     { 
     	"title":"BVS",
         "genre":"Action",
-    	"cover":"Imagenes/bvs.png" 
+    	"cover":"Imagenes/bvs.png" ,
+        "year" : "2016"
     },
     { 
     	"title":"Avengers",
         "genre":"Action",
-    	"cover":"Imagenes/avengers.png"
+    	"cover":"Imagenes/avengers.png",
+        "year" : "2016"
     },  
     {
         "title":"Doge the Movie",
         "genre":"Cartoon",
-        "cover":"Imagenes/doge.png"
+        "cover":"Imagenes/doge.png",
+        "year" : "2016"
     },
     { 
         "title":"BVS",
         "genre":"Drama",
-        "cover":"Imagenes/bvs.png" 
+        "cover":"Imagenes/bvs.png",
+        "year" : "2016" 
     },
     { 
         "title":"Avengers",
         "genre":"Romance",
-        "cover":"Imagenes/avengers.png"
+        "cover":"Imagenes/avengers.png",
+        "year" : "2016"
     }
 ]

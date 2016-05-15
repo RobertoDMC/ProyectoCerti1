@@ -5,16 +5,17 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope)
 
    $http.get('movies.json').success(function(data){
       $scope.movies = data;
-   })
+   });
 
 
      // $scope.searchVal = "";
 
    $scope.$on('search', function(event, criteria, searchVal)
    {
-      console.log(criteria);
-      $scope.searchVal = searchVal;
+      //console.log(criteria);
       $scope.criteria = criteria;
+      $scope.searchVal = searchVal;
+      
    });
 
      /* $scope.filtering = function(value, index, array){
@@ -22,14 +23,12 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope)
          $filter('mifiltro')(array, $scope.criteria, false);
       }*/
 
-   $scope.movieClicked = function()
-   {
+   $scope.movieClicked = function(){
+      //$location.path('/player/' + title);
       $rootScope.$broadcast('movieClick',$scope.movies); 
-      console.log($scope.movies[1]);  
-   }
+      //console.log($scope.movies[1]);  
+   };
    
-      
-
 });
 
 app.controller("headerController", function($scope,$location, $rootScope)
@@ -43,20 +42,38 @@ app.controller("headerController", function($scope,$location, $rootScope)
    $scope.showModal = function()
    {
       $scope.displayModal = true;
-   }
+   };
 
    $scope.hideModal = function()
    {
       $scope.displayModal = false;
-   }
+   };
 
    $scope.searchFor = function(criteria,searchVal)
    {
-      $scope.criteria = "genre"
+
+      $scope.criteria = criteria;
       $scope.searchVal = searchVal;
-      $rootScope.$broadcast('search',$scope.criteria ,$scope.searchVal);
       $location.path('/');
-   }
+      $rootScope.$broadcast('search',$scope.criteria ,$scope.searchVal);
+     
+   };
+
+      $scope.criterias = 
+      [
+      {
+         value: 'title',
+         label: 'Title'
+      }, 
+      {
+         value: 'genre',
+         label: 'Genre'
+      },
+      {
+         value: 'year',
+         label: 'Year'
+      }
+      ];   
 
 });
 
@@ -105,11 +122,12 @@ app.controller("genreController", function($scope)
 app.controller("playerController", function($scope, $routeParams)
 {  
 
+
    $scope.title = $routeParams.title;
    $scope.clickedMovie = {};
 
-   $scope.$on('movieClick', function(event, movies)
-   {
+   $scope.$on('movieClick', function(event, movies){
+      console.log("entro on");
       //$scope.movies = movies;
       for (var i = 0; i < movies.length; i++) 
       {
@@ -119,6 +137,11 @@ app.controller("playerController", function($scope, $routeParams)
             //console.log($scope.clickedMovie.title);
             console.log($scope.clickedMovie);
          }
+         else
+         {
+            console.log("else");
+         }
+
       }
    });
 
@@ -145,7 +168,7 @@ app.config(function($routeProvider){
 	})		//Cuando estemos en la raiz
 	.when('/signup',{
 		templateUrl:'pages/signup.html',
-		//controller: 'loginController'
+		controller: 'registerController'
 	})
    .when('/player/:title',{
       templateUrl:'pages/player.html',
@@ -165,7 +188,6 @@ app.directive('loadingPreview', function()
       {
          movie : "="
       },
-      
       template: '<video width="600" controls poster="Imagenes/{{movie.cover}}.png"  preload="auto">' +
                   '<source src="Imagenes/ciego.mp4" type="video/mp4">'+
                   '<source src="Imagenes/ciego.ogv" type="video/ogv">'+
