@@ -8,19 +8,12 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope)
    })
 
 
-     // $scope.searchVal = "";
-
    $scope.$on('search', function(event, criteria, searchVal)
    {
-      console.log(criteria);
       $scope.searchVal = searchVal;
       $scope.criteria = criteria;
-   });
+   })
 
-     /* $scope.filtering = function(value, index, array){
-
-         $filter('mifiltro')(array, $scope.criteria, false);
-      }*/
 
    $scope.movieClicked = function()
    {
@@ -28,16 +21,15 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope)
       console.log($scope.movies[1]);  
    }
    
-      
 
 });
 
-app.controller("headerController", function($scope,$location, $rootScope)
+/*----------------------------------------------------------------------------------------------------------------*/
+
+app.controller("headerController", function($scope, $location, $rootScope)
 {  
    $scope.displayModal = false;
-
    $scope.searchVal = "";
-
    $scope.criteria = "";
 
    $scope.showModal = function()
@@ -58,7 +50,51 @@ app.controller("headerController", function($scope,$location, $rootScope)
       $location.path('/');
    }
 
+   $scope.$on('genreClicked', function(event, genre)
+   {
+      $scope.searchVal = genre;
+   })
+
+
 });
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+app.controller("genreController", function($scope, $routeParams, $rootScope)
+{
+   $scope.genres = [
+      { 
+         "value" : "Action"
+      },
+      { 
+         "value" : "Comedy"
+      },
+      { 
+         "value" : "Much WOW"
+      },
+      { 
+         "value" : "Horror"
+      },
+      { 
+         "value" : "History"
+      },
+      { 
+         "value" : "Drama"
+      }   
+      ];
+
+
+   $scope.genreClicked = function()
+   {
+      $scope.genre = $routeParams.genre;
+      console.log($scope.genre);
+      $rootScope.$broadcast('genreClicked',$scope.genre); 
+   }
+
+
+});
+
+/*----------------------------------------------------------------------------------------------------------------*/
 
 app.controller("registerController", function($scope)
 {  
@@ -72,39 +108,15 @@ app.controller("registerController", function($scope)
       $scope.user.passVerification = passVerification;
       $scope.user.email = email;
       console.log($scope.user);
-
-   };
+   }
 
 });
 
+/*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("genreController", function($scope)
-{
-	$scope.genres = [
-   	{ 
-   		"value" : "Action"
-   	},
-   	{ 
-   		"value" : "Comedy"
-   	},
-      { 
-         "value" : "Much WOW"
-      },
-      { 
-         "value" : "Horror"
-      },
-      { 
-         "value" : "History"
-      },
-   	{ 
-   		"value" : "Drama"
-   	}	 
-   	];
-});
 
 app.controller("playerController", function($scope, $routeParams)
 {  
-
    $scope.title = $routeParams.title;
    $scope.clickedMovie = {};
 
@@ -120,7 +132,7 @@ app.controller("playerController", function($scope, $routeParams)
             console.log($scope.clickedMovie);
          }
       }
-   });
+});
 
 
   /* $scope.getMovie = function($event)
@@ -137,6 +149,7 @@ app.controller("playerController", function($scope, $routeParams)
 */
 });
 
+/*----------------------------------------------------------------------------------------------------------------*/
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -151,11 +164,17 @@ app.config(function($routeProvider){
       templateUrl:'pages/player.html',
       controller: 'playerController'
    })
+   .when('/:genre',{
+      templateUrl:'pages/home.html',
+      controller: 'genreController'
+   })
 	.otherwise({
 		redirectTo:'/'
 	})
 
 });
+
+/*----------------------------------------------------------------------------------------------------------------*/
 
 app.directive('loadingPreview', function()
 {

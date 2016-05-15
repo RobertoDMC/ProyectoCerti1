@@ -3,9 +3,11 @@
 </header>
 			
 <div ng-controller = "genreController">
-		<div class = "genres_container" ng-repeat = "genre in genres">
-			<a><div class = "genres">
+		<!--a href="#/{{genre.value}}"-->
+		<div class = "genres_container" ng-repeat = "genre in genres" >
+			<a href="#/{{genre.value}}" ><div class = "genres" ng-click="genreClicked()">
 					{{genre.value}}
 			</div></a>
 		</div>
+		<!--/a-->
 </div>
