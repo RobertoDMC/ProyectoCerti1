@@ -1,15 +1,15 @@
 <!--Creando el logo de la pagina-->
 <div style ="float:left; height:70px; width: 70px;">
 <a href = "#/home">
-	<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70">
+	<img  id = "logo" src="Imagenes/mubeez.png" alt="Best Movies Online" height = "70" width="70"></img>
 </a>
 </div>
 <div id = "search">
 
-	<select  ng-model="filterino" ng-options = "criteria as criteria.label for criteria in criterias">	
+	<select  ng-model="filterino" ng-options = "criteria as criteria.label for criteria in criterias" ng-init = "filterino =criterias[1]">	
 	</select>
 	
-	<input id = "searchBox" type="search" name="search" ng-model="searchVal" placeholder = "Search..."></input>
+	<input id = "searchBox" type="search" name="search" ng-model="searchVal" placeholder = "Search..." ng-init = "searchVal = 'action'"></input>
 	<button class = "btn btn-default btn-sm" style = "background-color : #ff0066; color :white; border-color:#232323;" id  = "searchButton" 
 	 ng-click = "searchFor(filterino.value,searchVal)">Search</button>
 	</button>
