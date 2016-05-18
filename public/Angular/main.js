@@ -19,7 +19,7 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope)
 
    $scope.movieClicked = function(){
       //$location.path('/player/' + title);
-      $rootScope.$broadcast('movieClick',$scope.movies); 
+      $rootScope.$broadcast('movieClick',$scope.movies);
       //console.log($scope.movies[1]);  
    };
 
@@ -48,7 +48,7 @@ app.controller("headerController", function($scope, $location, $rootScope)
 
       $scope.criteria = criteria;
       $scope.searchVal = searchVal;
-      $location.path('/');
+      //$location.path('/');
       $rootScope.$broadcast('search',$scope.criteria ,$scope.searchVal);
      
    };
@@ -72,7 +72,9 @@ app.controller("headerController", function($scope, $location, $rootScope)
    $scope.$on('genreClicked', function(event, genre)
    {
       $scope.searchVal = genre;
-   })
+      $scope.searchFor('genre', genre); 
+      $scope.apply();
+   });
 
 
 });
@@ -108,28 +110,100 @@ app.controller("genreController", function($scope, $routeParams, $rootScope)
       $scope.genre = $routeParams.genre;
       console.log($scope.genre);
       $rootScope.$broadcast('genreClicked',$scope.genre); 
-   }
+   };
 
 
 });
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("registerController", function($scope)
+app.controller("registerController", function($scope, $http)//
 {  
 
+   $http.get('users.json').success(function(data){
+      $scope.users = data;
+   });
+
+   $scope.validUsername = function()
+   {
+
+      valid = false;
+
+      usrRE = /^([A-Z]|[a-z]|[0-9]){6,}$/;
+
+      
+
+      if(usrRE.test($scope.user.name))
+      {
+         valid = true;
+      }
+
+      for (var i = 0; i < users.length; i++) 
+      {
+         if($scope.user.name == /*$scope.*/users[i].name)
+         {
+            valid = false;
+         }
+
+      }
+
+      return valid;
+   };
+
+   $scope.passwordValidation = function()
+   {
+
+      match = false;
+
+      if($scope.user.password == $scope.user.passVerification)
+      {
+         match = true;
+      }
+
+      return match;
+
+   };
+
+   $scope.validSubmit = function(){
+
+      valid = false;
+
+      if($scope.validName && $scope.validRegistration)
+      {
+         valid = true;
+      }
+
+      return valid;
+   };
+
+
    $scope.user = {};
+   $scope.validRegistration = false;
+   $scope.validName = $scope.validUsername($scope.user.name);
 
    $scope.register = function(name,password,passVerification, email)
    {
       $scope.user.name = name;
+      $scope.validName = $scope.validUsername();
       $scope.user.password = password;
       $scope.user.passVerification = passVerification;
+      $scope.validRegistration = $scope.passwordValidation();
       $scope.user.email = email;
-      console.log($scope.user);
-   }
+      if($scope.validSubmit())
+      {
+         console.log("OOO SI");
+         console.log($scope.user);
+      }
+      else
+      {
+         console.log("oooo NO");
+      }
+   };
 
-});
+
+
+   
+})
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
@@ -156,7 +230,7 @@ app.controller("playerController", function($scope, $routeParams)
             console.log("else");
          }
 
-      }
+      };
 });
 
 
@@ -191,7 +265,6 @@ app.config(function($routeProvider){
    })
    .when('/:genre',{
       templateUrl:'pages/home.html',
-      controller: 'genreController'
    })
 	.otherwise({
 		redirectTo:'/'
@@ -215,9 +288,9 @@ app.directive('loadingPreview', function()
                   'Your browser does not support HTML5 video.'+
                 '</video>',
 
-      link:function(scope, element, attrs)
-      {
-         scope.clickedMovie.title = scope.clickedMovie.title + 'directiva'
-      }
+      //link:function(scope, element, attrs)
+      //{
+      //   scope.clickedMovie.title = scope.clickedMovie.title + 'directiva'
+      //}
    }
 });
