@@ -1,38 +1,44 @@
 [
     {
-    	"title":"Doge the Movie",
-        "genre":"Much WOW",
-    	"cover":"Imagenes/doge.png",
+        "title":"Capitan America: Civil War",
+        "genre":"Action",
+        "cover":"http://pics.filmaffinity.com/Capit_n_Am_rica_Civil_War-298011137-large.jpg",
+        "video":"https://www.youtube.com/embed/dKrVegVI0Us",       
         "year" : "2016"
     },
     { 
-    	"title":"BVS",
+        "title":"Batman V Superman: Dawn of Justice",
         "genre":"Action",
-    	"cover":"Imagenes/bvs.png" ,
+        "cover":"http://www.supermansupersite.com/batvsup/who_will_win_poster.jpg",
+        "video":"https://www.youtube.com/embed/eX_iASz1Si8",       
         "year" : "2016"
     },
     { 
-    	"title":"Avengers",
+        "title":"The Avengers: Age of Ultron",
         "genre":"Action",
-    	"cover":"Imagenes/avengers.png",
+        "cover":"http://i.annihil.us/u/prod/marvel/i/mg/7/20/552e995ac83e5.jpg",
+        "video":"https://www.youtube.com/embed/tmeOjFno6Do",       
         "year" : "2016"
     },  
     {
-        "title":"Doge the Movie",
-        "genre":"Cartoon",
-        "cover":"Imagenes/doge.png",
+        "title":"X-Men: Apocalypse",
+        "genre":"Action",
+        "cover":"http://s3-eu-west-1.amazonaws.com/abandomedia/db/poster/db_posters_35884.jpg",
+        "video":"https://www.youtube.com/embed/Jer8XjMrUB4",
         "year" : "2016"
     },
     { 
-        "title":"BVS",
-        "genre":"Drama",
-        "cover":"Imagenes/bvs.png",
+        "title":"Deadpool",
+        "genre":"Comedy",
+        "cover":"http://www.geeksofdoom.com/GoD/img/2015/12/deadpool-poster-01.jpg",
+        "video":"https://www.youtube.com/embed/gfJVoF5ko1Y",       
         "year" : "2016" 
     },
     { 
-        "title":"Avengers",
-        "genre":"Romance",
-        "cover":"Imagenes/avengers.png",
+        "title":"Assasin's Creed",
+        "genre":"Drama",
+        "cover":"https://i.ytimg.com/vi/SUlls52SS5Q/maxresdefault.jpg",
+        "video":"https://www.youtube.com/embed/mcTtP1JnJ_E",       
         "year" : "2016"
     }
 ]

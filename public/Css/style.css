@@ -320,3 +320,12 @@ label.star:before
 	border : thin solid #ccc;
 	padding: 5px;
 }
+
+#userSpan
+{
+	color:white;
+	margin-right: 20px;
+	font-size: 15pt;
+	/*font-family: sans-serif;*/
+
+}

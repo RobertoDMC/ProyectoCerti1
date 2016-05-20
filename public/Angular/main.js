@@ -1,16 +1,25 @@
 var app = angular.module("main",['ngRoute']);
 
-app.controller("movieController", function($scope, $filter, $http, $rootScope, searchFactory)
+app.controller("movieController", function($scope, $filter, $http, $rootScope, searchFactory, getMoobeez)
 {
 
-   $http.get('movies.json').success(function(data){
-      $scope.movies = data;
-   });
-
+   $scope.algo = getMoobeez.getMovies().then(function successCallback(response){
+         console.log(response.data);
+         $scope.movies = response.data;
+         if(response.data.resp)
+         {
+            $location.path('/');
+         }else{
+            console.log('Failed loading mooooooobeez');
+         }
+      },
+      function errorCallback(response)
+      {  
+         console.log('ERROR')
+      });
 
    $scope.$on('search', function(event, criteria, searchVal)
    {
-      //console.log(criteria);
       $scope.criteria = criteria;
       $scope.searchVal = searchVal;
       
@@ -51,11 +60,15 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope, s
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("headerController", function($scope, $location, $rootScope, searchFactory)
+app.controller("headerController", function($scope, $location, $rootScope, searchFactory, registerFactory)
 {  
    $scope.displayModal = false;
    $scope.searchVal = "";
    $scope.criteria = "";
+   $scope.validUsername = false;
+   $scope.validPassword = false;
+   $scope.user = {};
+   $scope.userLogged = false; 
 
    $scope.showModal = function()
    {
@@ -74,6 +87,7 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
       $scope.searchVal = searchVal;
       searchFactory.setParams(criteria, searchVal);
       $location.path('/');
+
       //$rootScope.$broadcast('search',$scope.criteria ,$scope.searchVal);
      
    };
@@ -101,34 +115,48 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
       //$scope.apply();
    });
 
+   $scope.login = function(){
+      registerFactory.loginUser($scope.user).then(function successCallback(response){
+         console.log(response.data);
+         if(response.data.resp)
+         {
+            $scope.userLogged = true;
+            $scope.username = $scope.user.name;
+            $scope.hideModal();
+            $location.path('/');
+         }else{
+            $scope.user.name = "ERROR";
+         }
+      },
+      function errorCallback(response)
+      {  
+         $scope.user.name = response;
+      });
+   }  
 
 });
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("genreController", function($scope, $routeParams, $rootScope)
+app.controller("genreController", function($scope, $routeParams, $rootScope, getGenres)
 {
-   $scope.genres = [
-      { 
-         "value" : "Action"
-      },
-      { 
-         "value" : "Comedy"
-      },
-      { 
-         "value" : "Much WOW"
-      },
-      { 
-         "value" : "Horror"
-      },
-      { 
-         "value" : "History"
-      },
-      { 
-         "value" : "Drama"
-      }   
-      ];
 
+   $scope.algo = getGenres.getGenre().then(function successCallback(response){
+         console.log(response.data);
+         $scope.genres = response.data;
+         //console.log($scope.movies);
+         if(response.data.resp)
+         {
+            console.log('esty en el if :D');
+            $location.path('/');
+         }else{
+            console.log('el else :(');
+         }
+      },
+      function errorCallback(response)
+      {  
+         console.log('ERROR')
+      });
 
    $scope.genreClicked = function()
    {
@@ -148,60 +176,6 @@ app.controller("registerController", function($scope, $http, registerFactory)//
    $http.get('users.json').success(function(data){
       $scope.users = data;
    });
-/*
-   $scope.validUsername = function()
-   {
-
-      valid = false;
-
-      usrRE = /^([A-Z]|[a-z]|[0-9]){6,}$/;
-
-      
-
-      if(usrRE.test($scope.user.name))
-      {
-         valid = true;
-      }
-
-      for (var i = 0; i < users.length; i++) 
-      {
-         if($scope.user.name == /*$scope.users[i].name)
-         {
-            valid = false;
-         }
-
-      }
-
-      return valid;
-   };
-*/
-/*
-   $scope.passwordValidation = function()
-   {
-
-      match = false;
-
-      if($scope.user.password == $scope.user.passVerification)
-      {
-         match = true;
-      }
-
-      return match;
-
-   };
-*/
- /*  $scope.validSubmit = function(){
-
-      valid = false;
-
-      if($scope.validName && $scope.validRegistration)
-      {
-         valid = true;
-      }
-
-      return valid;
-   };*/
-
 
    //$scope.user = {};
    //$scope.validRegistration = false;
@@ -224,56 +198,19 @@ app.controller("registerController", function($scope, $http, registerFactory)//
       {
          console.log("oooo NO");
       }
-   };
-
-
-
-   
+   };  
 })
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
 
-app.controller("playerController", function($scope, $routeParams, clickedMovie)
+app.controller("playerController", function($scope, $routeParams, $sce,clickedMovie)
 {  
 
    $scope.title = clickedMovie.getMovie().title;
-   $scope.cover = clickedMovie.getMovie().cover;
-   //$scope.clickerinoMovie = clickedMovie.getMovie();
-   //console.log($scope.clickerinoMovie);
-   /*
-   $scope.$on('movieClick', function(event, movies){
-      console.log("entro on");
-      //$scope.movies = movies;
-      for (var i = 0; i < movies.length; i++) 
-      {
-         if($scope.title == /*$scope.movies[i].title)
-         {
-            $scope.clickerinoMovie = /*$scope.movies[i];
-            //console.log($scope.clickedMovie.title);
-            console.log($scope.clickerinoMovie);
-         }
-         else
-         {
-            console.log("else");
-         }
+   $scope.video = $sce.trustAsResourceUrl(clickedMovie.getMovie().video);
 
-      };*/
 });
-
-
-  /* $scope.getMovie = function($event)
-   {
-      $scope.movie = $event.currentTarget;
-      console.log($scope.movie);
-   };*/
-
-/*
-   //$scope.loadMovie = function()
-   //{
-    //  $scope.movie
-   //};
-*/
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
@@ -282,7 +219,7 @@ app.config(function($routeProvider){
 	.when('/', {
 		templateUrl:'pages/home.html'
       //controller: 'movieController'
-	})		//Cuando estemos en la raiz
+	})
 	.when('/signup',{
 		templateUrl:'pages/signup.html',
 		controller: 'registerController'
@@ -294,10 +231,6 @@ app.config(function($routeProvider){
    .when('/:genre',{
       templateUrl:'pages/home.html',
    })
-   //.when('/player',{
-   //   templateUrl:'pages/player.html',
-   //   controller: 'playerController'
-   //})
 	.otherwise({
 		redirectTo:'/'
 	})
@@ -317,8 +250,6 @@ app.directive('loadMovies', function($location, clickedMovie)
       template: '<a href = "#player/{{movie.title}}" ng-click = "showMovie(movie)"><img src = "{{movie.cover}}" class = "img-thumbnail">{{movie.title}}</img>'+
       '<br/>'+
       '{{movie.genre}}'+
-      '<br/>'+
-      '{{movie.year}}'+
       '</a>',
 
       link:function(scope, element, attrs)
@@ -347,39 +278,58 @@ app.factory('clickedMovie',function(){
    
 });
 
+/*----------------------------------------------------------------------------------------------------------------*/
 
+app.factory('getMoobeez',function($http){
+   var myMovies = {
+      getMovies:function(){
+         return $http.get('http://localhost:3000/api/movies')
+      }
+   };
+   return myMovies;
+});
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.factory('registerFactory',function(){
+app.factory('getGenres',function($http){
+   var myGenres = {
+      getGenre:function(){
+         return $http.get('http://localhost:3000/api/genres')
+      }
+   };
+   return myGenres;
+});
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+app.factory('registerFactory',function($http){
    var user = {};
-   var validRegistration = false;
-   var validName = validUsername(user.name);
    var newUser = {
       getUser: function(){
             return user;
         },
-      setUser: function(user){
-            user = user;
+      setUser: function(name,password){
+            user.name = name;
+            user.password = password;
         },
       validUsername : function()
       {
 
-      valid = false;
-      usrRE = /^([A-Z]|[a-z]|[0-9]){6,}$/;
+         valid = false;
+         usrRE = /^([A-Z]|[a-z]|[0-9]){6,}$/;
 
          if(usrRE.test(user.name))
          {
             valid = true;
          }
 
-         for (var i = 0; i < users.length; i++) 
-         {
-            if(user.name == users[i].name)
-            {
-               valid = false;
-            }
-         }
+         //for (var i = 0; i < users.length; i++) 
+         //{
+          //  if(user.name == users[i].name)
+           // {
+            //   valid = false;
+            //}
+         //}
 
          return valid;
       },
@@ -424,8 +374,18 @@ app.factory('registerFactory',function(){
          {
             console.log("oooo NO");
          }
+      },
+      loginUser:function(user){
+         return $http.get(
+            'http://localhost:3000/api/user',
+         {
+            params: {
+               name:user.name,
+               password:user.password
+            }
+         }
+         )
       }
-
 
   };
   return newUser; 

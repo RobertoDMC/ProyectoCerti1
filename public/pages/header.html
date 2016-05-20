@@ -16,7 +16,8 @@
 </div>
 
 <div class="container1">
-	<button href="#openModal" class="btn btn-success btn-lg" style = "margin-right:10px; background-color : #333333; color :white; border-color:#232323; "  ng-click = "showModal()">Sign In</button>
+	<span id = "userSpan" ng-show = "userLogged" class = "glyphicon glyphicon-user"><span style = "font-family:sans-serif;"> {{username}}</span></span>
+	<button href="#openModal" class="btn btn-success btn-lg" style = "margin-right:10px; background-color : #333333; color :white; border-color:#232323; "  ng-click = "showModal()" ng-hide = "userLogged">Sign In</button>
 </div>
 	<section id="openModal" class="modalDialog"  ng-show = "displayModal">
 		<a href="#close" class="close" ng-click = "hideModal()"> X </a>
@@ -30,12 +31,12 @@
 			<br/>
 			<br/>
 
-			<h2> Username: <input class = "form-control"  placeholder='Username' style = "width:250px;;float: right; position:relative;" id = "TextBox" type = "text"> </input></h2>
+			<h2> Username: <input class = "form-control"  placeholder='Username' style = "width:250px;;float: right; position:relative;" id = "TextBox" type = "text" ng-model = "user.name"> </input></h2>
 			<br/>
-			<h2> Password: <input class = "form-control" placeholder='Password' style = "width:250px; float: right; position:relative;" id = "TextBox" type = "password"></h2>
+			<h2> Password: <input class = "form-control" placeholder='Password' style = "width:250px; float: right; position:relative;" id = "TextBox" type = "password" ng-model = "user.password"></h2>
 			<br/>
 			<br/>
-			<a class="signup" ng-click = "hideModal()" href="#/signup" >Sign Up<input id="loginButton" type="button" value="Go"></input></a>
+			<a class="signup" ng-click = "hideModal()" href="#/signup" >Sign Up</a><button id="loginButton" type="button" ng-click = "login()">Log In</button>
 
 		</article>
 	</section>
