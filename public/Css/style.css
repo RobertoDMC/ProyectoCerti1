@@ -26,7 +26,7 @@ header,nav,section,article,aside,footer
 	z-index: 5;
 }
 
-#search
+#serch
 {
 	background-color: #232323;
 
@@ -37,7 +37,7 @@ header,nav,section,article,aside,footer
 	
 }
 
-#search #searchButton
+#serch #searchButton
 {
 	border-radius: 5px;
 	position: relative;

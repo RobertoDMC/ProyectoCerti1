@@ -1,30 +1,27 @@
 var app = angular.module("main",['ngRoute']);
 
-app.controller("movieController", function($scope, $filter, $http, $rootScope, searchFactory, getMoobeez)
+app.controller("movieController", function($scope, $filter, $http, $location ,$rootScope, searchFactory, getMoobeez)
 {
-
-   $scope.algo = getMoobeez.getMovies().then(function successCallback(response){
-         console.log(response.data);
-         $scope.movies = response.data;
-         if(response.data.resp)
-         {
-            $location.path('/');
-         }else{
-            //console.log('Failed loading mooooooobeez');
-         }
+   $scope.title = "Movies";
+   $scope.refreshMovies = function()
+   {
+      getMoobeez.getMovies().then(function successCallback(response){
+      //console.log(response.data);
+      $scope.movies = response.data;
+      if(response.data.resp)
+      {
+         $location.path('/');
+      }else{
+        //console.log('Failed loading mooooooobeez');
+      }
       },
-      function errorCallback(response)
+         function errorCallback(response)
       {  
          console.log('ERROR')
       });
+   }
 
-   $scope.$on('search', function(event, criteria, searchVal)
-   {
-      $scope.criteria = criteria;
-      $scope.searchVal = searchVal;
-      
-   });
-
+   $scope.refreshMovies();
 
    $scope.movieClicked = function(){
       //$location.path('/player/' + title);
@@ -32,43 +29,25 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope, s
       //console.log($scope.movies[1]);  
    };
 
-   $scope.filterMovie = function() {
-    return function( movie ) 
-    {
-
-      var crit;
-
-      if(searchFactory.getCriteria()=='genre')
-      {
-         return movie.genre == searchFactory.getSearchVal;
-      }
-      else if(searchFactory.getCriteria()=='title')
-      {
-         return movie.title == searchFactory.getSearchVal;
-      }
-      else if(searchFactory.getCriteria()=='year')
-      {
-         return movie.year == searchFactory.getSearchVal;
-      }
-
-         //return null;
-         
-    };
-};
-
+   $scope.$on('search',function(event, movies)
+   {
+      $location.path('/');
+      $scope.movies = movies;
+      $scope.title = "Search Results"
+   });
 });
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("headerController", function($scope, $location, $rootScope, searchFactory, registerFactory)
+app.controller("headerController", function($scope, $location, $rootScope, searchFactory, registerFactory, getMoobeez)
 {  
+   $scope.search = {};
    $scope.displayModal = false;
-   $scope.searchVal = "";
-   $scope.criteria = "";
-   $scope.validUsername = false;
-   $scope.validPassword = false;
+   //$scope.validUsername = false;
+   //$scope.validPassword = false;
    $scope.user = {};
    $scope.userLogged = false; 
+   $scope.movieList = {};
 
    $scope.showModal = function()
    {
@@ -82,16 +61,29 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
       $scope.user.password = "";
    };
 
-   $scope.searchFor = function(criteria,searchVal)
+   $scope.searchFor = function()
    {
+      //console.log($scope.search);
+      searchFactory.setParams($scope.search);
+      getMoobeez.getMovies().then(function successCallback(response){
+      //console.log(response.data);
+      $scope.movieList = response.data;
+      console.log($scope.movieList);
+      $location.path('/'); 
+      $rootScope.$broadcast('search',searchFactory.filterMovies($scope.movieList));
+      },
+         function errorCallback(response)
+      {  
+         console.log('ERROR')
+      });
+      //console.log("ROFL");
+      //console.log($scope.movieList);
+      //console.log(searchFactory.filterMovies($scope.movieList));
+      
 
-      $scope.criteria = criteria;
-      $scope.searchVal = searchVal;
-      searchFactory.setParams(criteria, searchVal);
-      $location.path('/');
 
-      //$rootScope.$broadcast('search',$scope.criteria ,$scope.searchVal);
-     
+      //$rootScope.$broadcast('movieClick',$scope.movieList);
+      //
    };
 
       $scope.criterias = 
@@ -113,9 +105,10 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
    $scope.$on('genreClicked', function(event, genre)
    {
       $scope.searchVal = genre;
-      $scope.searchFor('genre', genre); 
+      //$scope.searchFor('genre', genre);
+      //console.log($scope.movies[1]);  
+   }); 
       //$scope.apply();
-   });
 
    $scope.login = function(){
       registerFactory.loginUser($scope.user).then(function successCallback(response){
@@ -139,16 +132,14 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
    $scope.logOut = function(){
       $scope.userLogged = false;
    }
-
 });
-
 /*----------------------------------------------------------------------------------------------------------------*/
 
 app.controller("genreController", function($scope, $routeParams, $rootScope, getGenres)
 {
 
    $scope.algo = getGenres.getGenre().then(function successCallback(response){
-         console.log(response.data);
+         //console.log(response.data);
          $scope.genres = response.data;
          //console.log($scope.movies);
          if(response.data.resp)
@@ -393,25 +384,107 @@ app.factory('registerFactory',function($http){
 /*----------------------------------------------------------------------------------------------------------------*/
 
 app.factory('searchFactory',function(){
-   var criteria = "genre";
-   var searchVal = "action";
+   var criteria = "";
+   var value = "";
+   var lcValue = "";
+   var splitted;
+   var keywords;
+   var results = []; 
+   
+
+   var listMovies = [];
+
    var searchMethod = {
-      setParams: function(criteria, searchVal){
-            criteria = criteria;
-            searchVal = searchVal;     
+      setParams: function(search){
+            criteria = search.criteria.value;
+            value = search.value;     
+            lcValue = value.toLowerCase();
+            splitted = lcValue.split(" ");
+
+            keywords = new Array;
+            //var re = new Array;
+             
+               //Initial keyword is by default the first word
+            keywords[0] = splitted[0];
+             
+            var index = 1;
+             
+            //Making the elements of the search unique (avoid looking for "The" twice)
+            for (var i = 1; i < splitted.length; i++) 
+            {
+               if (keywords.indexOf(splitted[i]) == -1) 
+               {
+                  keywords[index] = splitted[i];
+                  //console.log('THIS IS THE KEYWORD '  +keywords[index]);
+                  index++;
+               } 
+            }  
+
+            
       },
-      getCriteria: function()
+      filterMovies: function(movies)
       {
-         return criteria;
-      },
-      getSearchVal: function()
-      {
-         return searchVal;
+         //angular.forEach(movies, function(movie,key)
+         //{
+          //  angular.forEach(movie, function(values,keys)
+           // {
+               //Looking for matches using each single word
+               for(var i=0; i < movies.length; i++)
+               {
+                  for( var j = 0; j<keywords.length; j++)
+                  {
+                     if(criteria=="title")
+                     {
+                        if(movies[i].title.toLowerCase().indexOf(keywords[j]) != -1)
+                        {   
+                           listMovies.push(movies[i]);
+                        }
+                     }
+                     else if(criteria=="genre")
+                     {
+                        if(movies[i].genre.toLowerCase().indexOf(keywords[j]) != -1)
+                        {   
+                           listMovies.push(movies[i]);
+                        }
+                     }
+                     else
+                     {
+                        if(movies[i].year==value)
+                        {   
+                           listMovies.push(movies[i]);
+                        }
+                     }
+                  } 
+               }
+               /*
+               if(criteria=="title")
+               {
+                  if(value==values)
+                  {
+                     movieList.push(movie);
+                  }
+               }else if(criteria=="genre")
+               {
+                  if(value==values)
+                  {
+                     movieList.push(movie);
+                  }
+               }else
+               {
+                  if(value==values)
+                  {
+                     movieList.push(movie);
+                  }
+               }*/
+           // })
+
+         //})
+         return listMovies; 
       }
       
   };
   return searchMethod;
-   
+
 });
 
 /*----------------------------------------------------------------------------------------------------------------*/
