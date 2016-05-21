@@ -329,3 +329,30 @@ label.star:before
 	/*font-family: sans-serif;*/
 
 }
+
+#logout
+{
+	font-family:sans-serif; 
+	font-size:12pt;
+	color:white;
+	text-decoration: none;
+}
+
+#logout:hover
+{
+	color:#ff0055;
+}
+
+#usernameLog
+{
+	font-family:sans-serif; 
+	padding-right:10px;
+	padding-top: 2px;
+}
+
+.invalid
+{
+	color:#ff0055; 
+	position:relative;
+}
+

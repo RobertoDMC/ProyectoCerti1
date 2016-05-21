@@ -16,7 +16,7 @@
 </div>
 
 <div class="container1">
-	<span id = "userSpan" ng-show = "userLogged" class = "glyphicon glyphicon-user"><span style = "font-family:sans-serif;"> {{username}}</span></span>
+	<span id = "userSpan" ng-show = "userLogged" class = "glyphicon glyphicon-user"><span id ="usernameLog"> {{username}}</span><a  id = "logout" ng-click="logOut()">  Logout</a></span>
 	<button href="#openModal" class="btn btn-success btn-lg" style = "margin-right:10px; background-color : #333333; color :white; border-color:#232323; "  ng-click = "showModal()" ng-hide = "userLogged">Sign In</button>
 </div>
 	<section id="openModal" class="modalDialog"  ng-show = "displayModal">

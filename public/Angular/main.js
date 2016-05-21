@@ -10,7 +10,7 @@ app.controller("movieController", function($scope, $filter, $http, $rootScope, s
          {
             $location.path('/');
          }else{
-            console.log('Failed loading mooooooobeez');
+            //console.log('Failed loading mooooooobeez');
          }
       },
       function errorCallback(response)
@@ -78,6 +78,8 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
    $scope.hideModal = function()
    {
       $scope.displayModal = false;
+      $scope.user.name = "";
+      $scope.user.password = "";
    };
 
    $scope.searchFor = function(criteria,searchVal)
@@ -117,7 +119,7 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
 
    $scope.login = function(){
       registerFactory.loginUser($scope.user).then(function successCallback(response){
-         console.log(response.data);
+         //console.log(response.data);
          if(response.data.resp)
          {
             $scope.userLogged = true;
@@ -134,6 +136,10 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
       });
    }  
 
+   $scope.logOut = function(){
+      $scope.userLogged = false;
+   }
+
 });
 
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -147,10 +153,10 @@ app.controller("genreController", function($scope, $routeParams, $rootScope, get
          //console.log($scope.movies);
          if(response.data.resp)
          {
-            console.log('esty en el if :D');
+            //console.log('esty en el if :D');
             $location.path('/');
          }else{
-            console.log('el else :(');
+            //console.log('el else :(');
          }
       },
       function errorCallback(response)
@@ -173,30 +179,41 @@ app.controller("genreController", function($scope, $routeParams, $rootScope, get
 app.controller("registerController", function($scope, $http, registerFactory)//
 {  
 
-   $http.get('users.json').success(function(data){
-      $scope.users = data;
+   $scope.user = {};
+      
+   registerFactory.getUsers().then(function successCallback(response){
+      $scope.users = response.data;
+   },function errorCallback(response){
+         console.log('Error');
    });
+
+
+
 
    //$scope.user = {};
    //$scope.validRegistration = false;
    //$scope.validName = $scope.validUsername($scope.user.name);
 
-   $scope.register = function(name,password,passVerification, email)
+   $scope.newUser = function(name,password,passVerification, email)
    {
       $scope.user.name = name;
-      $scope.validName = $scope.validUsername();
       $scope.user.password = password;
       $scope.user.passVerification = passVerification;
-      $scope.validRegistration = $scope.passwordValidation();
       $scope.user.email = email;
-      if($scope.validSubmit())
+      $scope.validName = registerFactory.validUsername($scope.user.name, $scope.users);
+      $scope.validPassword = registerFactory.passwordValidation($scope.user.password, $scope.user.passVerification);
+      $scope.validSubmit = registerFactory.validSubmit($scope.validName, $scope.validPassword);
+      if($scope.validSubmit)
       {
-         console.log("OOO SI");
-         console.log($scope.user);
+         registerFactory.register($scope.user).then(function successCallback(response){
+            console.log('Registro Exitoso');
+         }, function errorCallback(response){
+         console.log('error');
+         })   
       }
       else
       {
-         console.log("oooo NO");
+         console.log('Error');
       }
    };  
 })
@@ -303,41 +320,33 @@ app.factory('getGenres',function($http){
 /*----------------------------------------------------------------------------------------------------------------*/
 
 app.factory('registerFactory',function($http){
-   var user = {};
-   var newUser = {
-      getUser: function(){
-            return user;
-        },
-      setUser: function(name,password){
-            user.name = name;
-            user.password = password;
-        },
-      validUsername : function()
+      var newUser = {
+      validUsername : function(name, users)
       {
 
          valid = false;
          usrRE = /^([A-Z]|[a-z]|[0-9]){6,}$/;
 
-         if(usrRE.test(user.name))
+         if(usrRE.test(name))
          {
             valid = true;
          }
 
-         //for (var i = 0; i < users.length; i++) 
-         //{
-          //  if(user.name == users[i].name)
-           // {
-            //   valid = false;
-            //}
-         //}
+         for (var user in users) 
+         {
+            if(name == user.name)
+            {
+               valid = false;
+            }
+         }
 
          return valid;
       },
-      passwordValidation : function()
+      passwordValidation : function(password, passVerification)
       {
          match = false;
 
-         if(user.password == user.passVerification)
+         if(password == passVerification)
          {
             match = true;
          }
@@ -345,35 +354,21 @@ app.factory('registerFactory',function($http){
          return match;
 
       },
-      validSubmit : function()
+      validSubmit : function(validName, validPass)
       {
 
             valid = false;
 
-            if(validName && validRegistration)
+            if(validName && validPass)
             {
                valid = true;
             }
 
             return valid;
       },
-      register : function(name,password,passVerification, email)
+      register : function(user)
       {
-         user.name = name;
-         validName = validUsername();
-         user.password = password;
-         user.passVerification = passVerification;
-         validRegistration = passwordValidation();
-         user.email = email;
-         if(validSubmit())
-         {
-            console.log("OOO SI");
-            console.log(user);
-         }
-         else
-         {
-            console.log("oooo NO");
-         }
+         return $http.post('http://localhost:3000/api/user',user);   
       },
       loginUser:function(user){
          return $http.get(
@@ -384,7 +379,11 @@ app.factory('registerFactory',function($http){
                password:user.password
             }
          }
-         )
+         );
+      },
+      getUsers: function()
+      {
+         return $http.get('http://localhost:3000/api/user');
       }
 
   };
