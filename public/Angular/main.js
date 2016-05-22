@@ -5,6 +5,7 @@ app.controller("movieController", function($scope, $filter, $http, $location ,$r
    $scope.title = "Movies";
    $scope.refreshMovies = function()
    {
+      $scope.title = "Movies";
       getMoobeez.getMovies().then(function successCallback(response){
       //console.log(response.data);
       $scope.movies = response.data;
@@ -31,10 +32,26 @@ app.controller("movieController", function($scope, $filter, $http, $location ,$r
 
    $scope.$on('search',function(event, movies)
    {
-      $location.path('/');
+      //$location.path('/');
       $scope.movies = movies;
       $scope.title = "Search Results"
    });
+
+   $scope.clear = function()
+   {
+      $scope.movies = {};
+   };
+
+   $scope.$on('home',function(event)
+   {
+      $scope.refreshMovies();
+   });
+
+   $scope.$on('clear',function(event)
+   {
+      $scope.clear();
+   });
+
 });
 
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -43,8 +60,6 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
 {  
    $scope.search = {};
    $scope.displayModal = false;
-   //$scope.validUsername = false;
-   //$scope.validPassword = false;
    $scope.user = {};
    $scope.userLogged = false; 
    $scope.movieList = {};
@@ -63,7 +78,8 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
 
    $scope.searchFor = function()
    {
-      //console.log($scope.search);
+      $rootScope.$broadcast('clear');
+      console.log($scope.search);
       searchFactory.setParams($scope.search);
       getMoobeez.getMovies().then(function successCallback(response){
       //console.log(response.data);
@@ -76,14 +92,28 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
       {  
          console.log('ERROR')
       });
-      //console.log("ROFL");
-      //console.log($scope.movieList);
-      //console.log(searchFactory.filterMovies($scope.movieList));
-      
 
+   };
 
-      //$rootScope.$broadcast('movieClick',$scope.movieList);
-      //
+   $scope.searchGenre = function(criteria, value)
+   {
+      $scope.search.criteria = criteria;
+      $scope.search.value = value;
+      $rootScope.$broadcast('clear');
+      console.log($scope.search);
+      searchFactory.setParams($scope.search);
+      getMoobeez.getMovies().then(function successCallback(response){
+      //console.log(response.data);
+      $scope.movieList = response.data;
+      console.log($scope.movieList);
+      $location.path('/'); 
+      $rootScope.$broadcast('search',searchFactory.filterMovies($scope.movieList));
+      },
+         function errorCallback(response)
+      {  
+         console.log('ERROR')
+      });
+
    };
 
       $scope.criterias = 
@@ -105,10 +135,16 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
    $scope.$on('genreClicked', function(event, genre)
    {
       $scope.searchVal = genre;
-      //$scope.searchFor('genre', genre);
+      $scope.searchGenre('genre', genre);
       //console.log($scope.movies[1]);  
    }); 
       //$scope.apply();
+
+   $scope.home = function()
+   {
+      $rootScope.$broadcast('home');
+   };
+
 
    $scope.login = function(){
       registerFactory.loginUser($scope.user).then(function successCallback(response){
@@ -155,9 +191,9 @@ app.controller("genreController", function($scope, $routeParams, $rootScope, get
          console.log('ERROR')
       });
 
-   $scope.genreClicked = function()
+   $scope.genreClicked = function(genre)
    {
-      $scope.genre = $routeParams.genre;
+      $scope.genre = genre;
       console.log($scope.genre);
       $rootScope.$broadcast('genreClicked',$scope.genre); 
    };
@@ -167,24 +203,18 @@ app.controller("genreController", function($scope, $routeParams, $rootScope, get
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("registerController", function($scope, $http, registerFactory)//
+app.controller("registerController", function($scope, $http, registerFactory,$location)//
 {  
 
    $scope.user = {};
       
    registerFactory.getUsers().then(function successCallback(response){
       $scope.users = response.data;
+      console.log($scope.users);
    },function errorCallback(response){
          console.log('Error');
    });
-
-
-
-
-   //$scope.user = {};
-   //$scope.validRegistration = false;
-   //$scope.validName = $scope.validUsername($scope.user.name);
-
+   console.log($scope.users);
    $scope.newUser = function(name,password,passVerification, email)
    {
       $scope.user.name = name;
@@ -197,7 +227,8 @@ app.controller("registerController", function($scope, $http, registerFactory)//
       if($scope.validSubmit)
       {
          registerFactory.register($scope.user).then(function successCallback(response){
-            console.log('Registro Exitoso');
+            alert("Registro Creado");
+            $location.path('/');
          }, function errorCallback(response){
          console.log('error');
          })   
@@ -236,9 +267,9 @@ app.config(function($routeProvider){
       templateUrl:'pages/player.html',
       controller: 'playerController'
    })
-   .when('/:genre',{
-      templateUrl:'pages/home.html',
-   })
+   //.when('/',{
+   //   templateUrl:'pages/home.html',
+   //})
 	.otherwise({
 		redirectTo:'/'
 	})
@@ -323,9 +354,9 @@ app.factory('registerFactory',function($http){
             valid = true;
          }
 
-         for (var user in users) 
+         for(var i=0; i < users.length; i++)
          {
-            if(name == user.name)
+            if(name==users[i].name)
             {
                valid = false;
             }
@@ -374,7 +405,7 @@ app.factory('registerFactory',function($http){
       },
       getUsers: function()
       {
-         return $http.get('http://localhost:3000/api/user');
+         return $http.get('http://localhost:3000/api/userlist');
       }
 
   };
@@ -396,7 +427,7 @@ app.factory('searchFactory',function(){
 
    var searchMethod = {
       setParams: function(search){
-            criteria = search.criteria.value;
+            criteria = search.criteria;
             value = search.value;     
             lcValue = value.toLowerCase();
             splitted = lcValue.split(" ");
@@ -424,6 +455,7 @@ app.factory('searchFactory',function(){
       },
       filterMovies: function(movies)
       {
+         listMovies = [];
          //angular.forEach(movies, function(movie,key)
          //{
           //  angular.forEach(movie, function(values,keys)

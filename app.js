@@ -105,7 +105,7 @@ app.get('/api/user', function(req,res)
 		}else{
 			if(userList.length>0)
 			{
-				res.json({'resp':true})
+				res.json(userList);
 			}else{
 				res.json({'resp':false})
 			}
@@ -113,6 +113,21 @@ app.get('/api/user', function(req,res)
 	});
 
 });
+
+app.get('/api/userlist', function(req,res)
+{
+	Users.find(function(err, userList)
+	{
+		if(err)
+		{
+			res.send(err);
+		}else{
+			res.json(userList);
+		}
+	});
+
+});
+
 
 app.post('/api/user', function(req,res){
 	Users.create({
