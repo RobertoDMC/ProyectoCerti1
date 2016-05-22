@@ -109,11 +109,12 @@ body
 {
 	display: block;
 	margin: 30px auto;
+	color:;
 
 	
 	height: 90%;
 	width: 80%;
-	color:white;
+	color:rgb(255,13,134);
 	
 	font-family: sans-serif;
 
@@ -347,6 +348,7 @@ label.star:before
 	font-size:12pt;
 	color:white;
 	text-decoration: none;
+	padding-right: 10px;
 }
 
 #logout:hover

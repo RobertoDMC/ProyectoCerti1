@@ -1,6 +1,6 @@
 var app = angular.module("main",['ngRoute']);
 
-app.controller("movieController", function($scope, $filter, $http, $location ,$rootScope, searchFactory, getMoobeez)
+app.controller("movieController", function($scope, $http, $location ,$rootScope, searchFactory, getMoobeez)
 {
    $scope.title = "Movies";
    $scope.refreshMovies = function()
@@ -63,6 +63,7 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
    $scope.user = {};
    $scope.userLogged = false; 
    $scope.movieList = {};
+   $scope.isAdmin = false;
 
    $scope.showModal = function()
    {
@@ -92,7 +93,6 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
       {  
          console.log('ERROR')
       });
-
    };
 
    $scope.searchGenre = function(criteria, value)
@@ -153,6 +153,10 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
          {
             $scope.userLogged = true;
             $scope.username = $scope.user.name;
+            if($scope.username=='admin')
+            {
+               $scope.isAdmin = true;
+            }
             $scope.hideModal();
             $location.path('/');
          }else{
@@ -167,6 +171,7 @@ app.controller("headerController", function($scope, $location, $rootScope, searc
 
    $scope.logOut = function(){
       $scope.userLogged = false;
+      $scope.isAdmin = false;
    }
 });
 /*----------------------------------------------------------------------------------------------------------------*/
@@ -203,10 +208,15 @@ app.controller("genreController", function($scope, $routeParams, $rootScope, get
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-app.controller("registerController", function($scope, $http, registerFactory,$location)//
+app.controller("registerController", function($scope, $http, registerFactory,$location,$rootScope)//
 {  
 
    $scope.user = {};
+
+   $scope.home = function()
+   {
+      $rootScope.$broadcast('home');
+   };
       
    registerFactory.getUsers().then(function successCallback(response){
       $scope.users = response.data;
@@ -214,7 +224,6 @@ app.controller("registerController", function($scope, $http, registerFactory,$lo
    },function errorCallback(response){
          console.log('Error');
    });
-   console.log($scope.users);
    $scope.newUser = function(name,password,passVerification, email)
    {
       $scope.user.name = name;
@@ -227,8 +236,8 @@ app.controller("registerController", function($scope, $http, registerFactory,$lo
       if($scope.validSubmit)
       {
          registerFactory.register($scope.user).then(function successCallback(response){
-            alert("Registro Creado");
-            $location.path('/');
+            alert("User created");
+            $scope.home();
          }, function errorCallback(response){
          console.log('error');
          })   
@@ -238,12 +247,44 @@ app.controller("registerController", function($scope, $http, registerFactory,$lo
          console.log('Error');
       }
    };  
-})
+});
+/*----------------------------------------------------------------------------------------------------------------*/
+
+app.controller("createMovieController", function($scope, $location, $rootScope, registerMovieFactory)//
+{  
+
+   $scope.movie = {};
+
+   $scope.newMovie = function(title, genre, cover, video, year)
+   {
+      $scope.movie.title = title;
+      $scope.movie.genre = genre;
+      $scope.movie.cover = cover;
+      $scope.movie.video = video;
+      $scope.movie.year = year;
+
+      if($scope.movie.title != "" && $scope.movie.genre != "" && $scope.movie.cover != "" && $scope.movie.video != "" && $scope.movie.year >1900)
+      {
+      registerMovieFactory.register($scope.movie).then(function successCallback(response)
+      {
+         $location.path('/');
+         $rootScope.$broadcast('home');
+         alert("Movie created");
+      }, function errorCallback(response){
+      console.log('error');
+      })
+      }
+      else
+      {
+         alert("Please fill out the form");
+      }   
+   };  
+});
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
 
-app.controller("playerController", function($scope, $routeParams, $sce,clickedMovie)
+app.controller("playerController", function($scope, $sce,clickedMovie)
 {  
 
    $scope.title = clickedMovie.getMovie().title;
@@ -257,7 +298,6 @@ app.config(function($routeProvider){
 	$routeProvider
 	.when('/', {
 		templateUrl:'pages/home.html'
-      //controller: 'movieController'
 	})
 	.when('/signup',{
 		templateUrl:'pages/signup.html',
@@ -267,9 +307,10 @@ app.config(function($routeProvider){
       templateUrl:'pages/player.html',
       controller: 'playerController'
    })
-   //.when('/',{
-   //   templateUrl:'pages/home.html',
-   //})
+   .when('/createMovie',{
+      templateUrl:'pages/createMovie.html',
+      controller: 'createMovieController' 
+   })
 	.otherwise({
 		redirectTo:'/'
 	})
@@ -414,6 +455,19 @@ app.factory('registerFactory',function($http){
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
+app.factory('registerMovieFactory',function($http){
+      var newUser = {
+      register : function(movie)
+      {
+         return $http.post('http://localhost:3000/api/movies',movie);   
+      }
+
+  };
+  return newUser; 
+});
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
 app.factory('searchFactory',function(){
    var criteria = "";
    var value = "";
@@ -488,29 +542,6 @@ app.factory('searchFactory',function(){
                      }
                   } 
                }
-               /*
-               if(criteria=="title")
-               {
-                  if(value==values)
-                  {
-                     movieList.push(movie);
-                  }
-               }else if(criteria=="genre")
-               {
-                  if(value==values)
-                  {
-                     movieList.push(movie);
-                  }
-               }else
-               {
-                  if(value==values)
-                  {
-                     movieList.push(movie);
-                  }
-               }*/
-           // })
-
-         //})
          return listMovies; 
       }
       

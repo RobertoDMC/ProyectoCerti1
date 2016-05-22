@@ -40,6 +40,7 @@ var Movies = mongoose.model('movies', new Schema(
 {
 	title:String,
 	genre:String,
+	cover:String,
 	video:String,
 	year: Number
 }));
@@ -73,8 +74,9 @@ app.post('/api/movies', function(req,res){
 	Movies.create({
 		title:req.body.title,
 		genre:req.body.genre,
+		cover:req.body.cover,
 		video:req.body.video,
-		year:req.body.year
+		year: req.body.year
 
 	},function(err){
 		if(err)
@@ -105,7 +107,7 @@ app.get('/api/user', function(req,res)
 		}else{
 			if(userList.length>0)
 			{
-				res.json(userList);
+				res.json({'resp':true});
 			}else{
 				res.json({'resp':false})
 			}

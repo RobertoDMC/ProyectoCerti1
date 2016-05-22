@@ -4,7 +4,7 @@
 			
 <div ng-controller = "genreController">
 		<!--a href="#/{{genre.value}}"-->
-		<div class = "genres_container" ng-repeat = "genre in genres" >
+		<div class = "genres_container" ng-repeat = "genre in genres|orderBy:'value'" >
 			<a href="#/{{genre.value}}" ><div class = "genres" ng-click="genreClicked(genre.value)">
 					{{genre.value}}
 			</div></a>
